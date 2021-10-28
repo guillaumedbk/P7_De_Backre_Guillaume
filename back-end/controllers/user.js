@@ -3,42 +3,44 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 const passwordValidator = require ('../middleware/passwordValidator');
+const { Sequelize } = require("sequelize");
+const Model = require('../models')
 
 require('dotenv').config()
 
 exports.signup = (req, res, next)=>{
-    if(passwordValidator.validate(req.body.password)){
-      var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
-      var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
-      let encryptedMail = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString();
-    
-        bcrypt.hash(req.body.password, 10)
-        .then((hash) => {
-            const user = new User({
-                email: encryptedMail,
-                password: hash
-            });
-        user.save()
-        .then(()=> res.status(201).json({ message : 'objet enregistré' }))
+
+        //Ajout de l'utilisateur
+          Model.User.create({
+            email: req.body.email,
+            password: req.body.password,
+            prenom: req.body.prenom,
+            nom: req.body.nom,
+            bio: req.body.bio,
+            isAdmin: true
+          })
+          
+        .then((user)=> res.status(200).json( {
+          userId : user.id,
+          token : jwt.sign(
+            { userId: User.id },
+            'process.env.TOKEN_SECRET',
+            { expiresIn: '24h' }
+          )
+        }))
         .catch(error => res.status(400).json({ error }));
-        })
-    }else{
-      return res.status(400).json({ message: 'Le mot de passe doit contenir au minimum: deux chiffres, une minuscule, une majuscule et être composé de minimum 8 caractères !' })
     }
    
-    }
-  
+
+    
   exports.login = (req, res, next) => {
-    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
-    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
-    let encryptedMail = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString();
-  
-      User.findOne({ email: encryptedMail })
-        .then(user => {
-          if (!user) {
-            return res.status(401).json({ error: 'Utilisateur non trouvé !' });
-          }
-          bcrypt.compare(req.body.password, user.password)
+    Model.User.findOne({ where: { email: req.body.email } })
+    .then(user =>{
+      if(!user){
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+      }
+    })
+    bcrypt.compare(req.body.password, user.password)
             .then(valid => {
               if (!valid) {
                   res.status(401).json({ error: 'Mot de passe incorrect !' });
@@ -47,13 +49,11 @@ exports.signup = (req, res, next)=>{
                 userId: user._id,
                 token: jwt.sign(
                   { userId: user._id },
-                  process.env.TOKEN_SECRET,
+                  'process.env.TOKEN_SECRET',
                   { expiresIn: '24h' }
                 )
               });
             })
             .catch(error =>  res.status(500).json({ error: 'bcrypt compare' }));
-        })
-        .catch(error => res.status(500).json({ error }));
-    };
-  
+          }
+       

@@ -1,5 +1,9 @@
 const express = require('express');
 const app = express();
+const User = require('./models/user');
+var Sequelize = require('sequelize');
+const mysql = require('mysql2');
+const bodyParser = require('body-parser');
 
 //EVITER LES ERREURS DE CORS
 app.use((req, res, next) => {
@@ -9,18 +13,21 @@ app.use((req, res, next) => {
     next();
   });
 
-//CONNEXION BDD
+app.use(express.json()); 
 
 //ROUTES IMPORTS
 const routeUser = require('./routes/user')
 const routePost = require('./routes/post')
 const routeComments = require('./routes/comments')
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 //REDIRECTIONS VERS LES ROUTES
 app.use('/api/auth/', routeUser);
 app.use('/api/post/', routePost);
 app.use('/api/comments', routeComments);
 
-app.use(express.json()); 
+
 
 module.exports = app;

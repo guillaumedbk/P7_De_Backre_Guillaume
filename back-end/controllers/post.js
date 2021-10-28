@@ -1,3 +1,4 @@
+/*
 const Post = require('../models/posts');
 const fs = require('fs');
 
@@ -12,4 +13,4 @@ exports.creation = (req, res, next) =>{
     //Regarder comment save le nouvel object avec sequalize
 
     //Envoyer réponse du server
-}
+}*/

@@ -1,15 +1,28 @@
-//Imports
-//Ajouter bdd
-
-//Schema
-
-//Regarder comment créer un schéma pour sequalize
-
-/*
-const userSchema = mongoose.Schema({
-    email : {type: String, required: true, unique: true},
-    password : {type: String, required: true}
-});
-*/
-
-
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
+  };
+  User.init({
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    prenom: DataTypes.STRING,
+    nom: DataTypes.STRING,
+    bio: DataTypes.STRING,
+    isAdmin: DataTypes.BOOLEAN
+  }, {
+    sequelize,
+    modelName: 'User',
+  });
+  return User;
+};
