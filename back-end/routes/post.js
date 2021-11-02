@@ -12,9 +12,9 @@ const postCtrl = require('../controllers/post');
 //Routes
 router.post('/', postCtrl.creation);
 router.get('/', postCtrl.getAllPost);
-/*
 router.get('/:id', postCtrl.getOnePost);
 router.put('/:id', postCtrl.modifyOnePost);
+/*
 router.delete('/:id', postCtrl.deleteOne);
 router.post('/:id/like', postCtrl.like);
 */

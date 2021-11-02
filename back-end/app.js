@@ -4,6 +4,7 @@ const User = require('./models/user');
 var Sequelize = require('sequelize');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 //EVITER LES ERREURS DE CORS
 app.use((req, res, next) => {
