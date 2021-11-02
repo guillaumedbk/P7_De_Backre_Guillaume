@@ -9,9 +9,10 @@ const multer = require('../middleware/multer-config')
 const commentsCtrl = require('../controllers/comments.js');
 const { route } = require('./user');
 
-/*
+
 //Routes
 router.post('/', commentsCtrl.creation);
+/*
 router.get('/', commentsCtrl.getAllComments);
 router.get('/:id', commentsCtrl.getOneComment);
 router.delete('/:id', commentsCtrl.deleteOne);

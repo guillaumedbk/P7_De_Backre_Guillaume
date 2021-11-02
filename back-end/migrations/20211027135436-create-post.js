@@ -16,10 +16,12 @@ module.exports = {
           key:'id'
         }
       },
+      
       postId: {
-        allowNull: false,
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
+      
       texte: {
         type: Sequelize.STRING
       },
