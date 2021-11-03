@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/users');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
@@ -9,11 +9,10 @@ const Model = require('../models')
 require('dotenv').config()
 
 exports.signup = (req, res, next)=>{
-
         //Ajout de l'utilisateur
         bcrypt.hash(req.body.password, 10)
         .then((hash) =>{
-          Model.User.create({
+          Model.Users.create({
             email: req.body.email,
             password: hash,
             prenom: req.body.prenom,
@@ -26,10 +25,8 @@ exports.signup = (req, res, next)=>{
         .catch(error => res.status(400).json({ error }));
     }
    
-
-    
   exports.login = (req, res, next) => {
-    Model.User.findOne({ 
+    Model.Users.findOne({ 
       attributes:['id', 'email', 'password'],
       where: {email: req.body.email } 
     })

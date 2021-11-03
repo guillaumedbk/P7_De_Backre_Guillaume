@@ -12,8 +12,8 @@ const { route } = require('./user');
 
 //Routes
 router.post('/', commentsCtrl.creation);
-/*
 router.get('/', commentsCtrl.getAllComments);
+/*
 router.get('/:id', commentsCtrl.getOneComment);
 router.delete('/:id', commentsCtrl.deleteOne);
 router.delete('/', commentsCtrl.deleteAll);

@@ -1,19 +1,18 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const Model = require('../models')
-const Post = require('../models/post');
+const Post = require('../models/posts');
 
 //CREATION D'UN POST
 exports.creation = (req, res, next) =>{
 
     //Récupérer l'id 
-let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
-let id = decodeToken.userId; 
+    let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
+    let id = decodeToken.userId; 
 
     //Enregistrement du post
-    Model.Post.create({
-        userId: id,
-        postId: 1,                  //A CHANGER: pas besoin, la table a déjà un autoincrement
+    Model.Posts.create({
+        UserId: id,
         texte: req.body.texte,
         imageUrl: req.body.imageUrl, //INSERER LE PROTOCOLE PLUS TARD
         usersLiked: "",
@@ -25,7 +24,7 @@ let id = decodeToken.userId;
 
 //RECUPERATION DE TOUS LES POSTS
 exports.getAllPost = (req, res, next) =>{
-    Model.Post.findAll()
+    Model.Posts.findAll()
     .then(posts =>res.status(200).json({ posts }))
     .catch(error => res.status(400).json({ error }))
 }
@@ -34,14 +33,14 @@ exports.getAllPost = (req, res, next) =>{
 exports.getOnePost = (req, res, next) =>{
     let id = req.params.id;
 
-    Model.Post.findOne({where: {postId : id}})
+    Model.Posts.findOne({where: {id : id}})
     .then(post =>res.status(200).json({ post: post }))
     .catch(error => res.status(400).json({ error }))
 }
 //Modification d'un post
 exports.modifyOnePost = (req, res, next) =>{
     let id = req.params.id;
-    Model.Post.findOne({where: {postId : id}})
+    Model.Posts.findOne({where: {id : id}})
     .then((post) => {
         post.update({
             texte: req.body.texte
@@ -55,7 +54,7 @@ exports.modifyOnePost = (req, res, next) =>{
 //Suppression d'un post
 exports.deleteOne = (req, res, next) =>{
     let id = req.params.id;
-    Model.Post.destroy({where: {postId : id}})
+    Model.Posts.destroy({where: { id : id}})
     .then(() => res.status(200).json({ message: 'supprimé !' }))
     .catch(error => res.status(400).json({ error }))
 }

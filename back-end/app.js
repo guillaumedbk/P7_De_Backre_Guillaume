@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const User = require('./models/user');
+const User = require('./models/users');
 var Sequelize = require('sequelize');
 const mysql = require('mysql2');
 const bodyParser = require('body-parser');
