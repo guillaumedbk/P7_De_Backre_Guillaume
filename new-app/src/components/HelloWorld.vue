@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    
+    <p>Se connecter</p>
    
   </div>
 </template>
@@ -12,6 +12,7 @@ export default {
   props: {
     msg: String
   }
+ 
 }
 </script>
 
