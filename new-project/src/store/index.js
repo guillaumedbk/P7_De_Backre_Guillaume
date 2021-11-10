@@ -23,8 +23,11 @@ export default new Vuex.Store({
           },
           body: JSON.stringify(user) 
       })
-      .then(() =>{
-       
+      .then((response) =>{
+        console.log(response.json(response))
+      })
+      .catch(function(error){
+        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
       })
 
     }
