@@ -12,6 +12,8 @@ export default new Vuex.Store({
   },
   actions: {
     //Logique pour gérer les mutations
+
+    ////INSCRIPTION
     createAccount:({commit}, user) => {
         commit;
 
@@ -22,6 +24,25 @@ export default new Vuex.Store({
           'Content-Type': 'application/json' 
           },
           body: JSON.stringify(user) 
+      })
+      .then((response) =>{
+        console.log(response.json(response))
+      })
+      .catch(function(error){
+        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+      })
+
+    },
+    ////LOGIN
+    checkLogin:({commit}, login) =>{
+      commit;
+      fetch("http://localhost:3000/api/auth/login", {
+        method: 'POST',
+        headers: { 
+        'Accept': 'application/json', 
+        'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(login) 
       })
       .then((response) =>{
         console.log(response.json(response))
