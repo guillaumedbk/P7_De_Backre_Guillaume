@@ -45,7 +45,7 @@ export default{
           isAdmin: true
     })
     .then(function(){
-      self.$router.push('Home')
+      self.$router.push('Accueil')
     }, 
     function (error){
       console.log(error);

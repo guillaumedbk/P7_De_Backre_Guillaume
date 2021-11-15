@@ -32,13 +32,15 @@ exports.signup = (req, res, next)=>{
     })
     .then(user =>{
       if(!user){
-        return res.status(401).json({ error: 'Utilisateur non trouvé !' });
+        return res.status(401).json({ error: 'Utilisateur non trouvé !' }),
+        console.log({error: 'Utilisateur non trouvé !'} )
     }else{
 
       bcrypt.compare(req.body.password, user.password)
       .then(valid =>{
         if(!valid){
-          res.status(401).json({ error: 'Mot de passe incorrect !' });
+          res.status(401).json({ error: 'Mot de passe incorrect !' }),
+          console.log({error:'Mot de passe incorrect !' } )
         }
         res.status(200).json({ 
           userId: user.id,

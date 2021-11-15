@@ -1,5 +1,5 @@
 <template>
-<form id="SignupForm" @submit="loginCheck()">
+<form id="SignupForm" @submit="login()">
     <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
     <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" required/> </p>
      <Boutons></Boutons>
@@ -14,28 +14,35 @@ export default {
     components:{
         Boutons
     },
+
     data: function(){
 return {
   email:'',
   password:'',
   }
 },
-  methods:{
-  loginCheck: function(){
+
+ methods:{
+  
+  login: function(){
     const self = this;
-    this.$store.dispatch('checkLogin', {
+    this.$store.dispatch('login', {
           email: this.email,
           password: this.password,
     })
+    
     .then(function(){
+   
       self.$router.push('Accueil')
-    }, 
-    function (error){
+    })
+  
+    .catch(function (error){
       console.log(error);
     })
+    
 
-  }
-}
+  }} 
+
 }
 </script>
 

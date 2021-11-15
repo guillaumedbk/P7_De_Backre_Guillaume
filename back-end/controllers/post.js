@@ -3,6 +3,9 @@ const jwt = require('jsonwebtoken');
 const Model = require('../models')
 const Post = require('../models/posts');
 
+const multer = require('multer')
+
+
 //CREATION D'UN POST
 exports.creation = (req, res, next) =>{
 
@@ -14,14 +17,13 @@ exports.creation = (req, res, next) =>{
     Model.Posts.create({
         UserId: id,
         texte: req.body.texte,
-        imageUrl: req.body.imageUrl, //INSERER LE PROTOCOLE PLUS TARD
+        imageUrl: req.file.imageUrl,
         usersLiked: "",
         likes: 0
     })
     .then(()=> res.status(200).json({ message : 'post enregistré' }))
     .catch(error => res.status(400).json({ error }))
 }
-
 //RECUPERATION DE TOUS LES POSTS
 exports.getAllPost = (req, res, next) =>{
     Model.Posts.findAll()

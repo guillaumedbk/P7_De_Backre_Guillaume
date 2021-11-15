@@ -20,30 +20,13 @@ export default {
     HelloWorld,
     ConnectForm
   },
-  /*
+
   data: function(){
 return {
   email:'',
   password:'',
   }
-},
-  methods:{
-  loginCheck: function(){
-    const self = this;
-    this.$store.dispatch('checkLogin', {
-          email: this.email,
-          password: this.password,
-    })
-    .then(function(){
-      self.$router.push('Accueil')
-    }, 
-    function (error){
-      console.log(error);
-    })
-
-  }
 }
-*/
 }
 </script>
 
