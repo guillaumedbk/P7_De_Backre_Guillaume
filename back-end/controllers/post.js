@@ -17,7 +17,7 @@ exports.creation = (req, res, next) =>{
     Model.Posts.create({
         UserId: id,
         texte: req.body.texte,
-        imageUrl: req.file.imageUrl,
+        imageUrl: req.body.imageUrl,
         usersLiked: "",
         likes: 0
     })

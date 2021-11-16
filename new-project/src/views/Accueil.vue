@@ -1,41 +1,46 @@
 <template>
-  <div>
+  <div id="app">
       <h1>Bienvenue</h1>
       <p>Votre flux</p>
-      <button @click="getAllPosts">Charger</button>
-     
-     {{ posts }}
+    <!--  <button @click="getAllPosts">Charger</button>-->
+   
+    <ul>
+      <li class="post" v-for="post in posts" :key="post.id"> {{ post.texte }} + {{ post.imageUrl }}</li>
+    
+      
+    </ul>
 
-     
-
-  </div>
+    
+  </div>  
 </template>
 
 <script>
 import axios from 'axios'
 
 export default {
-name: 'Accueil',
+  name: 'Accueil',
 
 data(){
   return{
-   posts: null
+   posts: null,
+   id:null,
+   texte:"",
+   imageUrl:null
   };
 },
-methods:{
- getAllPosts(){
+
+mounted(){
    axios
     .get("http://localhost:3000/api/post/")
+    
     .then(response =>
-      this.posts = response.data)
-  
+      this.posts = response.data.posts )
+     
     .catch((error) =>{
-      console.log(error)
+      console.log(error.message)
   
     })
- }
-}
-
+},
 }
 </script>
 
