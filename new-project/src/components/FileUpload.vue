@@ -1,0 +1,82 @@
+<template>
+  <div class="file">
+   <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+      <div class="fields">
+        <label>Upload File</label><br/>
+       <p> <input type="file" ref="file" @change="onSelect"/></p>
+       <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" required/></p>
+      </div>
+      <div class="fields">
+        <p><button>Submit</button></p>
+      </div>
+      <div class="message">
+        <h5>{{message}}</h5>
+      </div>
+   </form>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  name: 'FileUpload',
+  data() {
+    return {
+      file:"",
+      message:"",
+      texte:""
+    }
+  },
+  methods: {
+    onSelect(){
+      const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+      const file = this.$refs.file.files[0];
+      this.file = file;
+      if(!allowedTypes.includes(file.type)){
+        this.message = "Filetype is wrong!!"
+      }
+      if(file.size>500000){
+        this.message = 'Too large, max size allowed is 500kb'
+      }
+    },
+    async onSubmit(){
+ 
+      const formData = new FormData();
+      formData.append('file',this.file);
+      try{
+        await axios.post('http://localhost:3000/uploads',formData);
+        this.message = 'Uploaded!!'
+        
+      }
+      catch(err){
+        console.log(err);
+        this.message = err.response.data.error
+      }
+
+    const postContent={
+        texte: this.texte,
+        imageUrl:this.file.name
+    }
+    
+
+   fetch("http://localhost:3000/api/post/", {
+          method: 'POST',
+          headers: { 
+          'Accept': 'application/json', 
+          'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(postContent) 
+      })
+      .then((response) =>{
+        console.log(response.json(response))
+      })
+      .catch(function(error){
+        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+      })
+
+
+
+    }
+  },
+}
+</script>

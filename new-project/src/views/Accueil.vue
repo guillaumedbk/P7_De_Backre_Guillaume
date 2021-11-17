@@ -1,16 +1,11 @@
 <template>
   <div id="app">
+    <router-link to="/creation">Creation</router-link>
       <h1>Bienvenue</h1>
-      <p>Votre flux</p>
-    <!--  <button @click="getAllPosts">Charger</button>-->
-   
-    <ul>
-      <li class="post" v-for="post in posts" :key="post.id"> {{ post.texte }} + {{ post.imageUrl }}</li>
-    
-      
+      <p class="centre">Votre flux</p> 
+    <ul id="liste">
+      <li class="post" v-for="post in posts" :key="post.id"> <h3>{{ post.texte }}</h3> <br> {{ post.imageUrl }}</li>
     </ul>
-
-    
   </div>  
 </template>
 
@@ -45,5 +40,22 @@ mounted(){
 </script>
 
 <style>
+.post{
+  list-style-type: none;
+  background-color: aliceblue;
+  border:2px solid brown ;
+  margin: 5%;
+  border-radius:15px;
+  width:50%;
+}
+#liste{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.centre{
+  display: flex;
+  justify-content: center;
+}
 
 </style>

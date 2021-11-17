@@ -22,7 +22,12 @@ const routes = [
     path:'/accueil',
     name:'Accueil',
     component: () => import(/* webpackChunkName: "about" */ '../views/Accueil.vue')
-  }
+  },
+  {
+    path:'/creation',
+    name:'Creation',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Creation.vue')
+  },
 ]
 
 const router = new VueRouter({

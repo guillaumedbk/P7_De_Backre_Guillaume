@@ -56,7 +56,25 @@ export default new Vuex.Store({
 
     },
 
-    ////RECUPERATION DES POSTS
+    ////CREATION DES POSTS
+    createPost:({commit}, post) =>{
+      commit;
+
+      fetch("http://localhost:3000/api/post", {
+          method: 'POST',
+          headers: { 
+          'Accept': 'application/json', 
+          'Content-Type': 'application/json' 
+          },
+          body: JSON.stringify(post) 
+      })
+      .then((response) =>{
+        console.log(response.json(response))
+      })
+      .catch(function(error){
+        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+      })
+    }
    
 
   },

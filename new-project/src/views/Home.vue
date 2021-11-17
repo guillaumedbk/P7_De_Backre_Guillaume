@@ -3,9 +3,10 @@
   <div class="home inscription">
     <img id="logo" alt="logo" src="../assets/icon.png">
     <HelloWorld msg="Bienvenue sur Groupomania, votre réseau social d'entreprise"/>
+    
     <h2>Connexion</h2>
      
-      <ConnectForm></ConnectForm>
+    <ConnectForm></ConnectForm>
   </div>
 </template>
 

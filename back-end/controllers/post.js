@@ -5,25 +5,33 @@ const Post = require('../models/posts');
 
 const multer = require('multer')
 
+const upload = multer({
+    dest: './uploads',
+})
+
+
 
 //CREATION D'UN POST
 exports.creation = (req, res, next) =>{
 
     //Récupérer l'id 
-    let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
-    let id = decodeToken.userId; 
+ //   let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
+  //  let id = decodeToken.userId; 
 
     //Enregistrement du post
     Model.Posts.create({
-        UserId: id,
+  //      UserId: id,
+        UserId: 1,
         texte: req.body.texte,
-        imageUrl: req.body.imageUrl,
+       // imageUrl:req.body.imageUrl,
+        imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
         usersLiked: "",
         likes: 0
     })
     .then(()=> res.status(200).json({ message : 'post enregistré' }))
     .catch(error => res.status(400).json({ error }))
 }
+
 //RECUPERATION DE TOUS LES POSTS
 exports.getAllPost = (req, res, next) =>{
     Model.Posts.findAll()
