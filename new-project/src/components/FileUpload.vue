@@ -1,6 +1,6 @@
 <template>
   <div class="file">
-   <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+   <form @submit.prevent="postFetch" enctype="multipart/form-data">
       <div class="fields">
         <label>Upload File</label><br/>
       <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" class="input" required/></p>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
 export default {
   name: 'FileUpload',
   data() {
@@ -42,20 +42,30 @@ export default {
       }
     },
 
-    async onSubmit(){
-      const formData = new FormData()
+    postFetch(){
+    const self=this;
+       const formData = new FormData()
       formData.append('file',this.file)
       formData.append('texte', this.texte )
-      try{
-        await axios.post('http://localhost:3000/api/post/uploads',formData)  
-        this.message = 'Uploaded!!'
-      }
-      catch(err){
-        console.log(err);
-        this.message = err.response.data.error
-      }
-      
-    } 
+
+
+      fetch('http://localhost:3000/api/post/uploads',{
+                method: 'POST',
+                 headers: { 
+                'Accept': 'application/json', 
+                'Content-Type': 'application/json' 
+                },
+                body: (formData) 
+            })
+       .then(function(){
+      self.$router.push('Accueil')
+    }, 
+    function (error){
+      console.log(error);
+    })
+
+    }
+    
   },
 }
 </script>

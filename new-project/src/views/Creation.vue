@@ -3,6 +3,7 @@
       <h1>Créez votre post</h1>
       
       <FileUpload></FileUpload>
+      
   </div>
 </template>
 
@@ -10,12 +11,17 @@
 
 import FileUpload from '../components/FileUpload.vue'
 
+
 export default {
     name:'Creation',
     components: {
        
         FileUpload
      
+  }, 
+  methods:{
+     
+
   }
 }
 </script>
