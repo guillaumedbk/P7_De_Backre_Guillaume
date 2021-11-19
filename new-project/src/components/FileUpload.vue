@@ -3,8 +3,9 @@
    <form @submit.prevent="onSubmit" enctype="multipart/form-data">
       <div class="fields">
         <label>Upload File</label><br/>
-       <p> <input type="file" ref="file" @change="onSelect"/></p>
-       <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" required/></p>
+      <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" class="input" required/></p>
+      <p> <input type="file" ref="file" @change="onSelect"/></p>
+       
       </div>
       <div class="fields">
         <p><button>Submit</button></p>
@@ -28,6 +29,7 @@ export default {
     }
   },
   methods: {
+
     onSelect(){
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       const file = this.$refs.file.files[0];
@@ -35,48 +37,33 @@ export default {
       if(!allowedTypes.includes(file.type)){
         this.message = "Filetype is wrong!!"
       }
-      if(file.size>500000){
+      if(file.size>900000){
         this.message = 'Too large, max size allowed is 500kb'
       }
     },
+
     async onSubmit(){
- 
-      const formData = new FormData();
-      formData.append('file',this.file);
+      const formData = new FormData()
+      formData.append('file',this.file)
+      formData.append('texte', this.texte )
       try{
-        await axios.post('http://localhost:3000/uploads',formData);
+        await axios.post('http://localhost:3000/api/post/uploads',formData)  
         this.message = 'Uploaded!!'
-        
       }
       catch(err){
         console.log(err);
         this.message = err.response.data.error
       }
-
-    const postContent={
-        texte: this.texte,
-        imageUrl:this.file.name
-    }
-    
-
-   fetch("http://localhost:3000/api/post/", {
-          method: 'POST',
-          headers: { 
-          'Accept': 'application/json', 
-          'Content-Type': 'application/json' 
-          },
-          body: JSON.stringify(postContent) 
-      })
-      .then((response) =>{
-        console.log(response.json(response))
-      })
-      .catch(function(error){
-        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-      })
-
-
-
-    }
+      
+    } 
   },
 }
 </script>
+
+<style>
+.file{
+  display: flex;
+  justify-content: center;
+}
+
+</style>

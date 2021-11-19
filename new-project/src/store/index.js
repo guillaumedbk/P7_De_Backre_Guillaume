@@ -53,7 +53,6 @@ export default new Vuex.Store({
       .catch(function(error){
         alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
       })
-
     },
 
     ////CREATION DES POSTS

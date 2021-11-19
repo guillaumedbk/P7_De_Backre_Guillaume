@@ -24,13 +24,25 @@ exports.creation = (req, res, next) =>{
         UserId: 1,
         texte: req.body.texte,
        // imageUrl:req.body.imageUrl,
-        imageUrl: `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`,
+        imageUrl: "",
         usersLiked: "",
         likes: 0
     })
     .then(()=> res.status(200).json({ message : 'post enregistré' }))
     .catch(error => res.status(400).json({ error }))
 }
+
+exports.addPost =(req, res) => {
+    //Enregistrement du post
+      Model.Posts.create({
+          UserId: 1,
+          texte: req.body.texte,
+         // imageUrl:req.body.imageUrl,
+          imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+          usersLiked: "",
+          likes: 0
+      })
+    }
 
 //RECUPERATION DE TOUS LES POSTS
 exports.getAllPost = (req, res, next) =>{

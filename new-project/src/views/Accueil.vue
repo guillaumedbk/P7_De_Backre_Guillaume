@@ -4,7 +4,12 @@
       <h1>Bienvenue</h1>
       <p class="centre">Votre flux</p> 
     <ul id="liste">
-      <li class="post" v-for="post in posts" :key="post.id"> <h3>{{ post.texte }}</h3> <br> {{ post.imageUrl }}</li>
+      <li class="post" v-for="post in posts" :key="post.id"> 
+        <h3>{{ post.texte }}</h3> <br>
+       
+      
+      <img  :src="post.imageUrl" alt="image du post" class="image_posts"></li>
+         
     </ul>
   </div>  
 </template>
@@ -20,13 +25,15 @@ data(){
    posts: null,
    id:null,
    texte:"",
-   imageUrl:null
+   imageUrl:null, 
+   image:""
   };
 },
 
 mounted(){
    axios
     .get("http://localhost:3000/api/post/")
+
     
     .then(response =>
       this.posts = response.data.posts )
@@ -36,6 +43,11 @@ mounted(){
   
     })
 },
+methods:{
+
+}
+
+
 }
 </script>
 
@@ -56,6 +68,9 @@ mounted(){
 .centre{
   display: flex;
   justify-content: center;
+}
+.image_posts{
+  width:80%;
 }
 
 </style>
