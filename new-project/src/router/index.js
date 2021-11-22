@@ -28,6 +28,16 @@ const routes = [
     name:'Creation',
     component: () => import(/* webpackChunkName: "about" */ '../views/Creation.vue')
   },
+  {
+    path:'/commentaire',
+    name:'Commentaire',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Commentaire.vue')
+  },
+  {
+    path:'/post/:id',
+    name:'Post',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Post.vue')
+  },
 ]
 
 const router = new VueRouter({

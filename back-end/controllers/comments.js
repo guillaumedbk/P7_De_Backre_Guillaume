@@ -5,12 +5,14 @@ const Post = require('../models/posts');
 
 exports.creation = (req, res, next) => {
     //Récupérer l'id 
-    let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
-    let id = decodeToken.userId; 
+  //  let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
+  //  let id = decodeToken.userId; 
     //Save
     Model.Comments.create({
-        UserId: id,
-        PostId: 1,
+   //     UserId: id,
+     
+        UserId:37,
+        PostId: 75,
         texte: req.body.texte
     })
     .then(()=> res.status(200).json({ message : 'commentaire enregistré' }))
@@ -23,10 +25,19 @@ exports.getAllComments = (req, res, next) =>{
     .catch(error => res.status(400).json({ error }))
 }
 
+//Commentaires selon le postId
 exports.getOneComment = (req, res, next) =>{
     let id = req.params.id;
-    Model.Comments.findOne({where: {id : id}})
+    Model.Comments.findAll({where: {postId : id}})
     .then(comment =>res.status(200).json({ comment: comment }))
     .catch(error => res.status(400).json({ error }))
 }
+/*
+exports.postComments = (req, res, next) =>{
+    let id = req.params.id;
+    Model.Comments.findAll({where: {postId : "74"}})
+    .then((comments) =>res.status(200).json({ comments }))
+    .catch(error => res.status(400).json({ error }))
+}
 
+*/

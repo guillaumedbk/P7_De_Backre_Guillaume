@@ -5,11 +5,16 @@
       <p class="centre">Votre flux</p> 
     <ul id="liste">
       <li class="post" v-for="post in posts" :key="post.id"> 
-        <h3>{{ post.texte }}</h3> <br>
        
+        <router-link :to="{ name: 'Post', params: { id: post.id}}">
+        
+          <h3>{{ post.texte }}</h3> <br>
+          <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
+          <router-link to="/commentaire" tag="button">Commenter</router-link>
+
+        </router-link>
       
-      <img  :src="post.imageUrl" alt="image du post" class="image_posts"></li>
-         
+      </li>
     </ul>
   </div>  
 </template>
@@ -26,7 +31,7 @@ data(){
    id:null,
    texte:"",
    imageUrl:null, 
-   image:""
+   image:"",
   };
 },
 
@@ -42,9 +47,11 @@ mounted(){
       console.log(error.message)
   
     })
-},
-methods:{
 
+},
+
+methods:{
+ 
 }
 
 

@@ -58,7 +58,7 @@ exports.getOnePost = (req, res, next) =>{
     let id = req.params.id;
 
     Model.Posts.findOne({where: {id : id}})
-    .then(post =>res.status(200).json({ post: post }))
+    .then(posts =>res.status(200).json({ posts: posts }))
     .catch(error => res.status(400).json({ error }))
 }
 //Modification d'un post
