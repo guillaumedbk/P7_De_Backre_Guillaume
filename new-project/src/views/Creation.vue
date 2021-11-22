@@ -19,10 +19,6 @@ export default {
         FileUpload
      
   }, 
-  methods:{
-     
-
-  }
 }
 </script>
 

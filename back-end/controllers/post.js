@@ -35,13 +35,15 @@ exports.creation = (req, res, next) =>{
 exports.addPost =(req, res) => {
     //Enregistrement du post
       Model.Posts.create({
-          UserId: 1,
+          UserId: 37,
           texte: req.body.texte,
          // imageUrl:req.body.imageUrl,
           imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
           usersLiked: "",
           likes: 0
       })
+      .then(()=> res.status(200).json({ message : 'post enregistré' }))
+    .catch(error => res.status(400).json({ error }))
     }
 
 //RECUPERATION DE TOUS LES POSTS
