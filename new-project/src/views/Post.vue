@@ -2,21 +2,28 @@
   <div>
       <h1>Post numéro: {{ this.$route.params.id }} </h1>
         <ul>
-    <li class="post" v-for="content in posts" :key="content.texte">   
-    <h2>{{ content.texte }}</h2><br>
-     <img  :src="content.imageUrl" alt="image du post" class="image_posts"> <br>
+    <li class="post" v-for="post in posts" :key="post.id">   
+     
+    <h2>{{ post.texte }}</h2><br>
+    
+     <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
       <router-link to="/commentaire" tag="button">Commenter</router-link>
+      <button>Supprimer</button>
     </li>
 
         </ul>
 
        <ul>
+    
+    <h2>Commentaires:</h2>
     <li class="comments" v-for="comment in comments" :key="comment.id">   
+        
     <p>{{ comment.texte }}</p><br>
+    
     
     </li>
         </ul>
-        
+
   </div>
 </template>
 
@@ -27,27 +34,27 @@ export default {
     name:'Post',
     data(){
         return{
-            id:null,
-            posts:{},
-            comments:{},
-            comment:"",
+            id:this.$route.params.id,
+            posts: null,
+            comments:null,
             texte:"",
             imageUrl:null, 
-        response:null,
+          
         }    
     },
 
     mounted(){
         axios
-        .get("http://localhost:3000/api/post/68")
-        .then(response => this.posts = response.data)
+        .get("http://localhost:3000/api/post/"+this.id)
+        
+        .then(response => this.posts = response.data )
     
         .catch((error) =>{
         console.log(error.message)
   
     })
      axios
-     .get("http://localhost:3000/api/comments/75")
+     .get("http://localhost:3000/api/comments/"+this.id)
      .then(response => this.comments = response.data.comment)
      .catch((error) =>{
         console.log(error.message)
