@@ -25,21 +25,23 @@ export default {
 
     data(){
         return{
-            texte:""
+            texte:"",
+            id:this.$route.params.id
         }
     },
     
     methods:{
         onSubmit(){
-    const commentaire = {texte: this.texte}
     const self =this;
-
+    const id = this.id;
+    const commentaire = {postId: id, texte: this.texte}
+   
     axios.post('http://localhost:3000/api/comments',commentaire)  
         //this.message = 'Uploaded!!'
        .then(function (response){
          console.log(response)
          if (response.status === 200){
-           self.$router.push('Accueil')
+           self.$router.push({ name: 'Post', params: { id: id }})
          }
        })
         .catch(function (error) {

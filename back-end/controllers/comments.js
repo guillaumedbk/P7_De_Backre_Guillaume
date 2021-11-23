@@ -11,8 +11,8 @@ exports.creation = (req, res, next) => {
     Model.Comments.create({
    //     UserId: id,
      
-        UserId:37,
-        PostId: 75,
+        UserId:38,
+        PostId: req.body.postId,
         texte: req.body.texte
     })
     .then(()=> res.status(200).json({ message : 'commentaire enregistré' }))

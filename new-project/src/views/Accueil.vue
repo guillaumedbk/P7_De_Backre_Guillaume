@@ -10,7 +10,7 @@
         
           <h3>{{ post.texte }}</h3> <br>
           <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
-          <router-link to="/commentaire" tag="button">Commenter</router-link>
+        
 
         </router-link>
       

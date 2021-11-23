@@ -1,14 +1,15 @@
 <template>
   <div>
-      <h1>Post numéro: {{ this.$route.params.id }} </h1>
+      <h1 id="titre">Post numéro: {{ this.$route.params.id }} </h1>
         <ul>
     <li class="post" v-for="post in posts" :key="post.id">   
      
     <h2>{{ post.texte }}</h2><br>
     
      <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
-      <router-link to="/commentaire" tag="button">Commenter</router-link>
-      <button>Supprimer</button>
+      <router-link :to="{ name: 'Commentaire', params: { id: id }}" tag="button">Commenter</router-link>
+    <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button">Modifier</router-link>
+      <button @click="deletePost">Supprimer</button>
     </li>
 
         </ul>
@@ -60,6 +61,22 @@ export default {
         console.log(error.message)
   
     })
+    },
+    methods:{
+        deletePost(){
+           const self=this;
+
+            axios
+            .delete("http://localhost:3000/api/post/"+this.id)
+            .then(function (response){
+                console.log(response)
+                if (response.status === 200){
+                self.$router.push('Accueil')
+         }
+       })
+
+            .catch((error)=>{console.log(error.message)})
+        }
     }
 
 }

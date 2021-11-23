@@ -9,6 +9,7 @@
       </div>
       <div class="fields">
         <p><button>Submit</button></p>
+      
       </div>
       <div class="message">
         <h5>{{message}}</h5>
@@ -64,6 +65,7 @@ export default {
       
     } ,
 
+        
 /*
     postFetch(){
    // const self=this;
