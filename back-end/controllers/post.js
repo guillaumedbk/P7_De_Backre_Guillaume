@@ -61,20 +61,39 @@ exports.getOnePost = (req, res, next) =>{
     .then(posts =>res.status(200).json({ posts: posts }))
     .catch(error => res.status(400).json({ error }))
 }
+
 //Modification d'un post
 exports.modifyOnePost = (req, res, next) =>{
     let id = req.params.id;
     Model.Posts.findOne({where: {id : id}})
     .then((post) => {
         post.update({
-            texte: req.body.texte
-            //AJOUTER LE PROTOCOLE ET LE CHECK POUR L'IMAGE
+            texte: req.body.texte,
+            imageUrl:`${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         })
         post.save()
     })
-    .then(post =>res.status(200).json({ message: 'post modifié' }))
+    .then(response =>res.status(200).json({ message: "post modifié" }))
     .catch(error => res.status(400).json({ error }))
 }
+
+/*
+exports.modifyOnePost = (req, res, next) =>{
+    const postObject = req.file ?
+      {
+        texte: req.body.texte,
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+      } : { ...req.body };
+    Model.Posts.findOne({where:{id:id}})
+    .then((post)=>{
+        post.updateOne({
+            ...sauceObject
+        })
+        .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+        .catch(error => res.status(400).json({ error }));
+    })
+}
+*/
 //Suppression d'un post
 exports.deleteOne = (req, res, next) =>{
     let id = req.params.id;

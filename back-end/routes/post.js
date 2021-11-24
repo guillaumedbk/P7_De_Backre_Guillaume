@@ -13,7 +13,7 @@ const postCtrl = require('../controllers/post');
 router.post('/', postCtrl.creation);
 router.get('/', postCtrl.getAllPost);
 router.get('/:id', postCtrl.getOnePost);
-router.put('/:id', postCtrl.modifyOnePost);
+router.put('/:id', multer, postCtrl.modifyOnePost);
 router.delete('/:id', postCtrl.deleteOne);
 //router.post('/:id/like', postCtrl.like);
 router.post('/uploads', multer, postCtrl.addPost)
