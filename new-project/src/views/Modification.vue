@@ -1,35 +1,30 @@
 <template>
 
   <div class="file">
-    <!--
-     <ul id="liste">
+    <ul id="liste">
       <li class="post" v-for="post in posts" :key="post.id"> 
-        
-        <form @submit.prevent="testChange" enctype="multipart/form-data">
-          <input type="text" id="texte" name="texte" :value= post.texte ><br>
 
-          <label>Modifier l'image: </label><br>
-          <input type="file" ref="file" name="file"><br>
-          <button type="submit">Soumettre</button>
-        </form>
-       
-      
-
+        <h2>Votre post:</h2>
+        <p class="center" id="titre">{{ post.texte }}</p>
         <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
-       
-      </li>
-    </ul>
--->
+
+        <h2>Entrez vos modifications:</h2>
+
      <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-      <div class="fields">
-        <label>Upload File</label><br/>
-      <p> <input type="text" v-model="texte"  name="texte" placeholder="Votre message" class="input" required/></p>
-      <p> <input type="file" ref="file" @change="onSelect"/></p>
+     
+        
+      <p> <input type="text" :value= post.texte name="texte" id="texte" class="input" @click="inputChange"/></p>
+  
+      </form>
+      </li>
+</ul>
+<form @submit.prevent="onSubmit" enctype="multipart/form-data">
+      
+      <label>Upload File</label><br/>
+       <p> <input type="file" ref="file" @change="onSelect"/></p>
        
-      </div>
       <div class="fields">
         <p><button>Submit</button></p>
-      
       </div>
       <div class="message">
         <h5>{{message}}</h5>
@@ -48,13 +43,13 @@ name:'Modification',
     return {
       file:"",
       message:"",
-      texte:"",
+      texte: "",
       id:this.$route.params.id,
       posts:null,
       titre:null
     }
   },
-  /*
+  
   mounted(){
     axios
     .get("http://localhost:3000/api/post/"+this.id)
@@ -68,27 +63,39 @@ name:'Modification',
   
     })
   },
-  */
+  
   methods:{
 
     onSelect(){
       const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
       const file = this.$refs.file.files[0];
       this.file = file;
-      if(!allowedTypes.includes(file.type)){
+     if(!allowedTypes.includes(file.type)){
         this.message = "Filetype is wrong!!"
       }
       if(file.size>500000){
         this.message = 'Too large, max size allowed is 500kb'
       }
     },
+
+    inputChange(){
+         document.getElementById('texte').addEventListener('input', function(){
+           const texteInput = document.getElementById('texte').value;
+           const titre = document.getElementById("titre");
+           titre.textContent= texteInput
+         })
+    },
   
       onSubmit(){
         const id = this.id;
+        const texteInput = document.getElementById('texte').value;
+        console.log(texteInput)
+
       const formData = new FormData()
-      formData.append('texte', this.texte)
       formData.append('file',this.file)
+      formData.append('texte', texteInput)
       
+    
 
       axios
       .put("http://localhost:3000/api/post/"+id, formData)
@@ -103,6 +110,12 @@ name:'Modification',
 </script>
 
 <style>
-
-
+.image_posts{
+  width:100px;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  font-size: 2em;
+}
 </style>

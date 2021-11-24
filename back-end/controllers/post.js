@@ -64,6 +64,7 @@ exports.getOnePost = (req, res, next) =>{
 
 //Modification d'un post
 exports.modifyOnePost = (req, res, next) =>{
+    
     let id = req.params.id;
     Model.Posts.findOne({where: {id : id}})
     .then((post) => {
@@ -77,6 +78,7 @@ exports.modifyOnePost = (req, res, next) =>{
     .catch(error => res.status(400).json({ error }))
 }
 
+
 /*
 exports.modifyOnePost = (req, res, next) =>{
     const postObject = req.file ?
@@ -86,14 +88,15 @@ exports.modifyOnePost = (req, res, next) =>{
       } : { ...req.body };
     Model.Posts.findOne({where:{id:id}})
     .then((post)=>{
-        post.updateOne({
-            ...sauceObject
+        post.update({
+            ...postObject
         })
         .then(() => res.status(200).json({ message: 'Objet modifié !'}))
         .catch(error => res.status(400).json({ error }));
     })
 }
 */
+
 //Suppression d'un post
 exports.deleteOne = (req, res, next) =>{
     let id = req.params.id;
