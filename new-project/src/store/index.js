@@ -6,6 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     //Data Store global
+    prenom:'Henry',
+    nom: 'Dupond'
   },
   mutations: {
     //Mettre à jour, modifier le state

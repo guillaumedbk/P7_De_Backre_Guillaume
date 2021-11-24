@@ -1,16 +1,31 @@
 <template>
   <div id="app">
-    <router-link to="/creation">Creation</router-link>
-      <h1>Bienvenue</h1>
-      <p class="centre">Votre flux</p> 
+
+    <div id="bienvenue">
+      <h1 class="">Bienvenue</h1><br>
+      <p class="">Votre flux</p> 
+      <router-link to="/creation">Creation</router-link>
+    </div>
+
     <ul id="liste">
       <li class="post" v-for="post in posts" :key="post.id"> 
        
-        <router-link :to="{ name: 'Post', params: { id: post.id}}">
-        
-          <h3>{{ post.texte }}</h3> <br>
-          <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
-        
+        <router-link :to="{ name: 'Post', params: { id: post.id}}" id="router_link">
+          <div class="post_header">
+            <div class="rond"></div>
+            <p class="nom">{{ $store.state.prenom }}</p>
+            <p class="nom">{{ $store.state.nom }}</p>
+          </div>
+
+        <div class="centre">
+                <div class="post_body">
+                  <h3>{{ post.texte }}</h3> <br>
+                  <img  :src="post.imageUrl" alt="image du post" class="image_posts centpourcent"> <br>
+                  <i class="far fa-heart coeur centpourcent"></i>
+                </div>
+        </div>
+      
+       
 
         </router-link>
       
@@ -59,10 +74,21 @@ methods:{
 </script>
 
 <style>
+h1{
+  width:0;
+}
+.centpourcent{
+  width:100%
+}
+#bienvenue{
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
 .post{
   list-style-type: none;
-  background-color: aliceblue;
-  border:2px solid brown ;
+  background-color: #fdebeb;
+  border:2px solid #fdd7d7 ;
   margin: 5%;
   border-radius:15px;
   width:50%;
@@ -76,8 +102,41 @@ methods:{
   display: flex;
   justify-content: center;
 }
-.image_posts{
+
+.rond{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px ;
+    background: #fdd7d7;
+    margin:3%;
+}
+.post_header{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+}
+.nom{
+  color:#855353bd;
+  width: fit-content;
+  margin:1%;
+}
+#router_link{
+   text-decoration-line: none;
+   color:#855353bd;
+}
+.coeur{
+  font-size: 2em;
+  margin-top:3%;
+  margin-bottom:1%;
+}
+.post_body{
+  display: flex;
+  justify-content: flex-start;
+  
+  flex-wrap: wrap;
   width:80%;
+
 }
 
 </style>
