@@ -1,16 +1,20 @@
 <template> 
-   <div class="inscription">
-    <h1>Rejoins-nous !</h1>
-    <!-- Formulaire -->
-    <form id="SignupForm" @submit="sendToApi()">
-      <p>   <input type="text" v-model="nom" name="Nom" placeholder="Nom" required/> </p>
-      <p>   <input type="text" v-model="prenom" name="Prénom" placeholder="Prénom" required/> </p>
-      <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
-      <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" required/> </p>
-      <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie"/> </p>
+   <div class="principal">
+     <div class="inscription">
+      <h1>Rejoins-nous !</h1>
+      <!-- Formulaire -->
+      <form id="SignupForm" @submit="sendToApi()">
+        <p>   <input type="text" v-model="nom" name="Nom" placeholder="Nom" required/> </p>
+        <p>   <input type="text" v-model="prenom" name="Prénom" placeholder="Prénom" required/> </p>
+        <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
+        <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" required/> </p>
+        <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie"/> </p>
 
-     <Boutons></Boutons>
-    </form>
+      <Boutons></Boutons>
+      </form>
+
+     </div>
+    
   </div>
 </template>
 
@@ -64,10 +68,20 @@ export default{
 h1, h2{
   width: 100%;
 }
+.principal{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
 .inscription{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  background:rgba(255,255,255, .3);
+  width:25%;
+  border-radius:20px;
+  box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
 }
 #form_inscription{
   margin-left:45%;

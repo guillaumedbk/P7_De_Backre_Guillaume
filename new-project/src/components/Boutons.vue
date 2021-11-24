@@ -12,7 +12,7 @@ export default {
 
 <style>
 #bouton{
-    width:100%;
+    width:80%;
     background-color:#fdd7d7 ;
     border:none;
     border-radius:20px;
