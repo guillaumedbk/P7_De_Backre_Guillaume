@@ -14,7 +14,7 @@
      
         
       <p> <input type="text" :value= post.texte name="texte" id="texte" class="input" @click="inputChange"/></p>
-  
+
       </form>
       </li>
 </ul>
