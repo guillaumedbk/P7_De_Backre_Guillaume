@@ -2,6 +2,7 @@
    <div class="principal">
      <div class="inscription">
       <h1>Rejoins-nous !</h1>
+      <h3 id="message"></h3>
       <!-- Formulaire -->
       <form id="SignupForm" @submit="sendToApi()">
         <p>   <input type="text" v-model="nom" name="Nom" placeholder="Nom" required/> </p>
@@ -49,7 +50,7 @@ export default{
           isAdmin: true
     })
     .then(function(){
-      self.$router.push('Accueil')
+      self.$router.push('/')
     }, 
     function (error){
       console.log(error);
@@ -79,7 +80,7 @@ h1, h2{
   flex-wrap: wrap;
   justify-content: center;
   background:rgba(255,255,255, .3);
-  width:25%;
+  width:fit-content;
   border-radius:20px;
   box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
 }
