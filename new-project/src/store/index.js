@@ -7,15 +7,19 @@ export default new Vuex.Store({
   state: {
     //Data Store global
     status:'',
+    token:'',
     user:{
       userId:-1,
-      token:''
+     
     },
     prenom:'Henry',
     nom: 'Dupond'
   },
   mutations: {
     //Mettre à jour, modifier le state
+    userToken:(state, token) =>{
+      state.token = token
+    },
     setStatus: function(state, status){
       state.status = status;
     },

@@ -15,6 +15,7 @@
             <div class="rond"></div>
             <p class="nom">{{ $store.state.prenom }}</p>
             <p class="nom">{{ $store.state.nom }}</p>
+            <p class="nom">{{ $store.state.token }}</p>
           </div>
 
         <div class="centre">
@@ -31,6 +32,8 @@
       
       </li>
     </ul>
+
+  
   </div>  
 </template>
 

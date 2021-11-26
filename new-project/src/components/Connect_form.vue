@@ -60,7 +60,8 @@ const self = this;
           })
           .then(response => response.json())
           .then((response) =>{
-            console.log(JSON.stringify(response))
+            console.log(JSON.stringify(response.token))
+           self.$store.commit('userToken', response.token)
             self.$router.push('Accueil')
           //  commit('setStatus', '')
           //  commit('logUser', response.data)
