@@ -8,15 +8,15 @@ export default new Vuex.Store({
     //Data Store global
     status:'',
     token:'',
-    user:{
-      userId:-1,
-     
-    },
+    userId:'',
     prenom:'Henry',
     nom: 'Dupond'
   },
   mutations: {
     //Mettre à jour, modifier le state
+    userId:(state, id) =>{
+      state.userId = id
+    },
     userToken:(state, token) =>{
       state.token = token
     },

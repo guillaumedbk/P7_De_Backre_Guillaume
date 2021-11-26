@@ -43,6 +43,11 @@ const routes = [
     name:'Modification',
     component: () => import(/* webpackChunkName: "about" */ '../views/Modification.vue')
   },
+  {
+    path:'/profil/:id?',
+    name:'Profil',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Profil.vue')
+  },
 ]
 
 const router = new VueRouter({

@@ -41,17 +41,47 @@ exports.signup = (req, res, next)=>{
         if(!valid){
           res.status(401).json({ error: 'Mot de passe incorrect !' }),
           console.log({error:'Mot de passe incorrect !' } )
+        }else{
+          res.status(200).json({ 
+            userId: user.id,
+            token: jwt.sign(
+              { userId: user.id },
+              process.env.TOKEN_SECRET,
+              { expiresIn: '24h' }
+            )
+          });
         }
-        res.status(200).json({ 
-          userId: user.id,
-          token: jwt.sign(
-            { userId: user.id },
-            process.env.TOKEN_SECRET,
-            { expiresIn: '24h' }
-          )
-        });
+       
       })
       .catch(error =>  res.status(500).json({ error: 'bcrypt' }));
     }
     })}
   
+exports.getUser = (req, res, next) => {
+    let id = req.params.id;
+    Model.Users.findOne({
+      where: {id : id}}
+      )
+      .then(user =>res.status(200).json({ user: user }))
+    .catch(error => res.status(400).json({ error }))
+}
+
+exports.modifyUser = (req, res, next) =>{
+  let id = req.params.id;
+  bcrypt.hash(req.body.password, 10)
+        .then((hash) =>{
+      Model.Users.findOne({where: {id : id}})
+        .then((users)=>{
+          users.update({
+            email: req.body.email,
+            password: hash,
+            prenom: req.body.prenom,
+            nom: req.body.nom,
+            bio: req.body.bio,
+            idAdmin:true
+          })
+          .then((users) => res.status(200).json({ users }))
+        })
+          .catch(error => res.status(400).json({ error }));
+      })   
+}

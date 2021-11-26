@@ -4,7 +4,8 @@
     <div id="bienvenue">
       <h1 class="">Bienvenue</h1><br>
       <p class="">Votre flux</p> 
-      <router-link to="/creation">Creation</router-link>
+      <router-link to="/creation">Creation</router-link><br>
+      <router-link :to="{ name: 'Profil', params: { id: $store.state.userId }}" >Profil</router-link>
     </div>
 
     <ul id="liste">
@@ -16,6 +17,7 @@
             <p class="nom">{{ $store.state.prenom }}</p>
             <p class="nom">{{ $store.state.nom }}</p>
             <p class="nom">{{ $store.state.token }}</p>
+            <p class="nom">{{ $store.state.userId }}</p>
           </div>
 
         <div class="centre">
@@ -25,15 +27,10 @@
                   <i class="far fa-heart coeur centpourcent"></i>
                 </div>
         </div>
-      
-       
-
+    
         </router-link>
-      
       </li>
     </ul>
-
-  
   </div>  
 </template>
 
@@ -77,9 +74,6 @@ methods:{
 </script>
 
 <style>
-h1{
-  width:0;
-}
 .centpourcent{
   width:100%
 }

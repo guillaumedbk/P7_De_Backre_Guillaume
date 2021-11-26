@@ -44,8 +44,8 @@ computed:{
 
    login(e){
    e.preventDefault()
-const self = this;
-     const userInfos ={
+      const self = this;
+      const userInfos ={
        email: this.email,
        password:this.password
      }
@@ -60,8 +60,9 @@ const self = this;
           })
           .then(response => response.json())
           .then((response) =>{
-            console.log(JSON.stringify(response.token))
-           self.$store.commit('userToken', response.token)
+            console.log(JSON.stringify(response))
+            self.$store.commit('userId', response.userId)
+            self.$store.commit('userToken', response.token)
             self.$router.push('Accueil')
           //  commit('setStatus', '')
           //  commit('logUser', response.data)
