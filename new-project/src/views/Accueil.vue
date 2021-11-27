@@ -4,7 +4,7 @@
     <div id="bienvenue">
       <h1 class="">Bienvenue</h1><br>
       <p class="">Votre flux</p> 
-      <router-link to="/creation">Creation</router-link><br>
+      <router-link :to="{ name: 'Creation', params: { id: $store.state.userId }}">Creation</router-link><br>
       <router-link :to="{ name: 'Profil', params: { id: $store.state.userId }}" >Profil</router-link>
     </div>
 

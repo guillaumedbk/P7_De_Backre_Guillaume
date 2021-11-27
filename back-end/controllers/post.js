@@ -32,12 +32,11 @@ exports.creation = (req, res, next) =>{
     .catch(error => res.status(400).json({ error }))
 }
 */
-exports.addPost =(req, res) => {
+exports.addPost =(req, res, next) => {
     //Enregistrement du post
       Model.Posts.create({
-          UserId: 60,
+          UserId: req.body.userId,
           texte: req.body.texte,
-         // imageUrl:req.body.imageUrl,
           imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
           usersLiked: "",
           likes: 0

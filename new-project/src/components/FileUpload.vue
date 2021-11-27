@@ -26,7 +26,8 @@ export default {
     return {
       file:"",
       message:"",
-      texte:""
+      texte:"",
+      id : this.$route.params.id,
     }
   },
   methods: {
@@ -45,11 +46,13 @@ export default {
 
     async onSubmit(){
       const self=this;
+        
       const formData = new FormData()
+      formData.append('userId', this.id)
       formData.append('file',this.file)
       formData.append('texte', this.texte )
    
-        await axios.post('http://localhost:3000/api/post/uploads',formData)  
+        await axios.post("http://localhost:3000/api/post/uploads/"+this.id, formData)  
         //this.message = 'Uploaded!!'
        .then(function (response){
          console.log(response)

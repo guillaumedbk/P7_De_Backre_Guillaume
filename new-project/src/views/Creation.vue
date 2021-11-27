@@ -15,10 +15,14 @@ import FileUpload from '../components/FileUpload.vue'
 export default {
     name:'Creation',
     components: {
-       
         FileUpload
-     
   }, 
+  data(){
+  return{
+   id: this.$route.params.id,
+  }
+  }
+
 }
 </script>
 

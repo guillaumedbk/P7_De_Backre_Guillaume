@@ -1,25 +1,23 @@
 <template>
-  <div>
+  <div class="profil">
      
   <ul>
     <li class="post" v-for="profil in personne" :key="profil.id">
         <h1>Bienvenue sur votre profil</h1>
-            
+        <div id="info">
+        <i class="fas fa-info-circle fa-2x i"></i>
+        <p>Pour modifier vos données, il vous suffit de changer les informations ci-dessous et de cliquer sur soumettre</p>
+        </div>
+         <form @submit.prevent="onSubmit"  class="formulaire">
+      <div class="flex-center">
         <h3>Vos coordonnées :</h3>
-
-        <p>{{ profil.prenom }} {{ profil.nom }}</p>
-        <p>{{ profil.email }}</p>
-        <p>Biographie: {{ profil.bio }}</p>
-
-         <form @submit.prevent="onSubmit" >
-      
-        <h3>Apportez vos modifications:</h3>
         <p> <input type="text" :value= profil.prenom name="texte" id="prenom" class="input" @click="inputChange"/></p>
         <p> <input type="text" :value= profil.nom name="texte" id="name" class="input" @click="inputChange"/></p>
         <p> <input type="email" :value= profil.email name="mail" id="mail" class="input" @click="inputChange"/></p>
         <p> <input type="textarea" :value= profil.bio name="bio" id="bio" class="input" @click="inputChange"/> </p>
         <p> <input type="password" :value= profil.password name="mpd" id="mdp" class="input" @click="inputChange"/> </p>
-        <p> <input type="submit" value="Modifier" class="input"/> </p>
+        <p> <input type="submit" value="Soumettre" class="input"/> </p>
+       </div>
       </form>
         </li>
   </ul>
@@ -80,20 +78,14 @@ methods:{
     onSubmit(){
         const id = this.id;
         const prenomInput = document.getElementById('prenom').value;
-        console.log(prenomInput)
 
         const nameInput = document.getElementById('name').value;
-        console.log(nameInput)
 
         const mailInput = document.getElementById('mail').value;
-        console.log(mailInput)
 
         const bioInput = document.getElementById('bio').value;
-        console.log(bioInput)
 
         const mdpInput = document.getElementById('mdp').value;
-        console.log(mdpInput)
-
 
         const formData={
             email:  mailInput,
@@ -106,7 +98,15 @@ methods:{
     axios
       .put("http://localhost:3000/api/auth/usermodifs/"+id, formData)
 
-      .then(response => console.log(response))
+      .then(response => {console.log(response)
+    
+    axios
+    .get("http://localhost:3000/api/auth/user/"+this.id)
+    
+    .then(response => this.personne = response.data)
+    
+    .catch((error) => {console.log(error.message)})
+        })
 
       .catch((err)=> console.log(err))
 
@@ -117,10 +117,39 @@ methods:{
 </script>
 
 <style>
+.i{
+  margin: 7px;
+}
 li{
     list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.flex-center{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 .input{
     color:black
+}
+.formulaire{
+  display: flex;
+  justify-content: center;
+  background-color: #fdebeb;
+  padding:3rem;
+  width:fit-content;
+  height:fit-content;
+  border-radius:20px;
+  box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
+}
+.profil{
+  display:flex;
+  justify-content: center;
+}
+#info{
+  display: flex;
+  align-items: center;
 }
 </style>
