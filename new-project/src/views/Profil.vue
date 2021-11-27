@@ -16,8 +16,9 @@
         <h3>Apportez vos modifications:</h3>
         <p> <input type="text" :value= profil.prenom name="texte" id="prenom" class="input" @click="inputChange"/></p>
         <p> <input type="text" :value= profil.nom name="texte" id="name" class="input" @click="inputChange"/></p>
-        <p> <input type="email" :value= profil.email name="mail" id="mail" class="input"/></p>
-        <p> <input type="textarea" :value= profil.bio name="bio" id="bio" class="input"/> </p>
+        <p> <input type="email" :value= profil.email name="mail" id="mail" class="input" @click="inputChange"/></p>
+        <p> <input type="textarea" :value= profil.bio name="bio" id="bio" class="input" @click="inputChange"/> </p>
+        <p> <input type="password" :value= profil.password name="mpd" id="mdp" class="input" @click="inputChange"/> </p>
         <p> <input type="submit" value="Modifier" class="input"/> </p>
       </form>
         </li>
@@ -69,6 +70,12 @@ methods:{
            const newBio = document.getElementById("bio");
            newBio.value= bioInput;
          })
+
+          document.getElementById('mdp').addEventListener('input', function(){
+           const mdpInput = document.getElementById('mdp').value;
+           const newMdp = document.getElementById("mdp");
+           newMdp.value= mdpInput;
+         })
     },
     onSubmit(){
         const id = this.id;
@@ -84,17 +91,18 @@ methods:{
         const bioInput = document.getElementById('bio').value;
         console.log(bioInput)
 
+        const mdpInput = document.getElementById('mdp').value;
+        console.log(mdpInput)
+
 
         const formData={
             email:  mailInput,
-            password:'test',
+            password:mdpInput,
             prenom: prenomInput,
             nom: nameInput,
             bio: bioInput
         }
-      
-        console.log(formData)
-
+    
     axios
       .put("http://localhost:3000/api/auth/usermodifs/"+id, formData)
 
