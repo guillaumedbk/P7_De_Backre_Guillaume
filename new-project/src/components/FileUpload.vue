@@ -46,7 +46,7 @@ export default {
 
     async onSubmit(){
       const self=this;
-        
+
       const formData = new FormData()
       formData.append('userId', this.id)
       formData.append('file',this.file)
@@ -57,15 +57,12 @@ export default {
        .then(function (response){
          console.log(response)
          if (response.status === 200){
-           self.$router.push('Accueil')
+           self.$router.push({ name: 'Accueil'})
          }
        })
         .catch(function (error) {
           console.log(error);
         })
-        //console.log(err);
-       // this.message = err.response.data.error
-      
     } ,
 
         

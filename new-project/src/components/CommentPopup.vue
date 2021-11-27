@@ -24,24 +24,29 @@ export default {
     name:'CommentPopup',
 
     data(){
+        const self = this;
         return{
             texte:"",
-            id:this.$route.params.id
+            id: self.$store.state.userId,
+            postId: this.$route.params.id,
         }
     },
     
     methods:{
         onSubmit(){
+    
     const self =this;
     const id = this.id;
-    const commentaire = {postId: id, texte: this.texte}
+    const postId = this.postId;
+    console.log(id)
+    const commentaire = {userId: self.id, postId: self.postId, texte: self.texte}
    
     axios.post('http://localhost:3000/api/comments',commentaire)  
         //this.message = 'Uploaded!!'
        .then(function (response){
          console.log(response)
          if (response.status === 200){
-           self.$router.push({ name: 'Post', params: { id: id }})
+           self.$router.push({ name: 'Post', params: { id: postId }})
          }
        })
         .catch(function (error) {

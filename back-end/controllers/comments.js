@@ -10,8 +10,7 @@ exports.creation = (req, res, next) => {
     //Save
     Model.Comments.create({
    //     UserId: id,
-     
-        UserId:38,
+        UserId: req.body.userId,
         PostId: req.body.postId,
         texte: req.body.texte
     })
