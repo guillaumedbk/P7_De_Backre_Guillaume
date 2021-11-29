@@ -49,7 +49,10 @@ data(){
 },
 
 mounted(){
-   axios
+  const self = this;
+  if(this.$store.state.user != -1){
+
+    axios
     .get("http://localhost:3000/api/post/")
 
     
@@ -60,7 +63,9 @@ mounted(){
       console.log(error.message)
   
     })
-
+  }else{
+   self.$router.push('/')
+  }
 },
 
 methods:{

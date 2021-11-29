@@ -53,6 +53,8 @@ export default {
     },
 
     mounted(){
+        const self = this;
+          if(this.$store.state.user != -1){
         axios
         .get("http://localhost:3000/api/post/"+this.id)
         
@@ -73,11 +75,10 @@ export default {
     
         .catch((error) =>{
         console.log(error.message)
-
-       
-  
     })
-
+          }else{
+              self.$router.push('/')
+          }
      axios
      .get("http://localhost:3000/api/comments/"+this.id)
      .then(response => this.comments = response.data.comment)

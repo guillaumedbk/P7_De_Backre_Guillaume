@@ -3,10 +3,33 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/inscription">Inscription</router-link>
+
+      
+        <button v-if="user == -1" class="disconnect">Déconnecté</button>
+        <button v-else class="connect">Connecté</button>
+   
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    name:'App',
+
+    data: function(){
+return {
+ 
+  }
+},
+computed:{
+    ...mapState(['user'])
+  },
+}
+</script>
+
 
 <style lang="scss">
 #app {
@@ -29,4 +52,20 @@
     }
   }
 }
+.connect{
+  background-color:green;
+  width:10%;
+    border:none;
+    border-radius:20px;
+}
+
+.disconnect{
+  background-color:rgba(255, 0, 0, 0.473);
+   width:10%;
+  
+    border:none;
+    border-radius:20px;
+}
 </style>
+
+

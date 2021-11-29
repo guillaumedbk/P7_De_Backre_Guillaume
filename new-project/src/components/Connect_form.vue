@@ -67,19 +67,21 @@ computed:{
           .then((response) =>{
             console.log(response)
             console.log(JSON.stringify(response))
-            console.log(self.connect)
+          
          
             if(response.status == 200){
-                self.$store.commit('setStatus', '');
-                  self.$store.commit('logUser', response.data)
+                  self.$store.commit('setStatus', '');
+                  self.$store.commit('user', response.userId)
 
                   self.$store.commit('userId', response.userId)
                   self.$store.commit('userToken', response.token)
+          
                       //Redirection si connecté
                       self.$router.push('/accueil')
             
             }else{
               alert(response.error)
+             
             }
           })
           .catch((error)=>{

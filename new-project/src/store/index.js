@@ -9,12 +9,9 @@ export default new Vuex.Store({
     status:'',
     token:'',
     userId:'',
-    prenom:'Henry',
-    nom: 'Dupond',
-    user:{
-      userId:-1,
-      token:''
-    },
+    prenom:'',
+    nom: '',
+    user:-1
   },
   mutations: {
     //Mettre à jour, modifier le state
@@ -27,8 +24,8 @@ export default new Vuex.Store({
     setStatus: function(state, status){
       state.status = status;
     },
-    logUser: function(state, user){
-      state.user = user;
+    user: function(state, id){
+      state.user = id;
     }
   },
   actions: {
@@ -36,7 +33,8 @@ export default new Vuex.Store({
 
     ////INSCRIPTION
     createAccount:({commit}, user) => {
-        commit;
+    
+        commit('setStatus', 'loading')
 
         fetch("http://localhost:3000/api/auth/signup", {
           method: 'POST',
@@ -48,6 +46,7 @@ export default new Vuex.Store({
       })
       .then((response) =>{
         commit('setStatus', 'created')
+       
         console.log(response.json(response))
       })
       .catch(function(error){
@@ -80,5 +79,6 @@ export default new Vuex.Store({
   },
   modules: {
 
-  }
+  },
+
 })

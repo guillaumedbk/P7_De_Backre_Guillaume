@@ -10,8 +10,9 @@
         <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
         <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" required/> </p>
         <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie"/> </p>
-
-      <Boutons></Boutons>
+      
+        <span v-if="status == 'loading'"><input type="submit" value="Création en cours" id="bouton"/></span>
+        <span v-else><input type="submit" value="Créer mon compte" id="bouton"/></span>
       </form>
 
      </div>
@@ -20,12 +21,12 @@
 </template>
 
 <script>
-import Boutons from '../components/Boutons.vue'
 
+import { mapState } from 'vuex'
 export default{
   name:'Signup',
   components:{
-    Boutons
+   
   },
   data: function(){         
     return{
@@ -37,6 +38,9 @@ export default{
       bio:'',
       isAdmin:true
     }
+  },
+  computed:{
+    ...mapState(['status'])
   },
   methods:{
   sendToApi: function(){
@@ -50,7 +54,7 @@ export default{
           isAdmin: true
     })
     .then(function(){
-      self.$router.push('/')
+     self.$router.push('/')
     }, 
     function (error){
       console.log(error);
@@ -96,6 +100,12 @@ p{
   width:100%;
   display: flex;
   justify-content: space-between;
+}
+#bouton{
+    width:80%;
+    background-color:#fdd7d7 ;
+    border:none;
+    border-radius:20px;
 }
 </style>
 
