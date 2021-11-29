@@ -4,24 +4,22 @@
     <div id="bienvenue">
       <h1 class="">Bienvenue</h1><br>
       <p class="">Votre flux</p> 
-      <router-link :to="{ name: 'Creation', params: { id: $store.state.userId }}">Creation</router-link><br>
-      <router-link :to="{ name: 'Profil', params: { id: $store.state.userId }}" >Profil</router-link>
+      <button class="bouton_lien"><router-link :to="{ name: 'Creation', params: { id: $store.state.userId }}" class="lien_router">Créer un post</router-link></button><br>
+      <button class="bouton_lien"><router-link :to="{ name: 'Profil', params: { id: $store.state.userId }}" class="lien_router">Profil</router-link></button>
     </div>
 
     <ul id="liste">
-      <li class="post" v-for="post in posts" :key="post.id"> 
+      <li class="post_accueil" v-for="post in posts" :key="post.id"> 
        
         <router-link :to="{ name: 'Post', params: { id: post.id}}" id="router_link">
           <div class="post_header">
             <div class="rond"></div>
             <p class="nom">{{ $store.state.prenom }}</p>
             <p class="nom">{{ $store.state.nom }}</p>
-            <p class="nom">{{ $store.state.token }}</p>
-            <p class="nom">{{ $store.state.userId }}</p>
           </div>
 
         <div class="centre">
-                <div class="post_body">
+                <div class="post_body_accueil">
                   <h3>{{ post.texte }}</h3> <br>
                   <img  :src="post.imageUrl" alt="image du post" class="image_posts centpourcent"> <br>
                   <i class="far fa-heart coeur centpourcent"></i>
@@ -79,10 +77,11 @@ methods:{
 }
 #bienvenue{
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-.post{
+.post_accueil{
   list-style-type: none;
   background-color: #fdebeb;
   border:2px solid #fdd7d7 ;
@@ -127,13 +126,18 @@ methods:{
   margin-top:3%;
   margin-bottom:1%;
 }
-.post_body{
+.post_body_accueil{
   display: flex;
   justify-content: flex-start;
-  
   flex-wrap: wrap;
   width:80%;
-
 }
-
+.lien_router{
+text-decoration: transparent;
+color:black;
+}
+.bouton_lien{
+  width:15%;
+  height: 100px;
+}
 </style>

@@ -1,41 +1,34 @@
 <template>
   <div class="flex-center">
       <div class="post_design">
-      <h1 id="titre">Post numéro: {{ this.$route.params.id }} </h1>
 
+        <ul class="post_body">
+            <li  v-for="post in posts" :key="post.id">  
 
-      
-<ul class="post_body">
-    <li  v-for="post in posts" :key="post.id">  
-
-            <ul> 
-                <li  v-for="user in userData" :key="user.id">  
-                        <p>Post publié par: {{ user.prenom }}</p>
-                </li>
-            </ul>
-                            
-            <h2>{{ post.texte }}</h2><br>
-            
-            <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
-            <router-link :to="{ name: 'Commentaire', params: { id: id }}" tag="button">Commenter</router-link>
-            <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button">Modifier</router-link>
-            <button @click="deletePost">Supprimer</button>
-
-    </li>
-
-</ul>
-
-
+                    <ul> 
+                        <li  v-for="user in userData" :key="user.id">  
+                                <p>Publié par {{ user.prenom }} :</p>
+                        </li>
+                    </ul>
+                    
+                    <h3>{{ post.texte }}</h3><br>
+                    
+                    <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
+                    <div id="boutons">
+                        <router-link :to="{ name: 'Commentaire', params: { id: id }}" tag="button">Commenter</router-link>
+                        <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button">Modifier</router-link>
+                        <button @click="deletePost">Supprimer</button>
+                    </div>
+            </li>
+        </ul>
 
        <ul>
-    
-    <h2>Commentaires:</h2>
-    <li class="comments" v-for="comment in comments" :key="comment.id">   
-        
-    <p>{{ comment.texte }}</p><br>
-    
-    
-    </li>
+            <h2>Commentaires:</h2>
+            <li class="comments" v-for="comment in comments" :key="comment.id">   
+         
+                <p>{{ comment.texte }}</p><br>
+
+            </li>
         </ul>
     </div>
   </div>
@@ -95,17 +88,16 @@ export default {
     },
     methods:{
         deletePost(){
-           const self=this;
-
+            const self=this;
             axios
             .delete("http://localhost:3000/api/post/"+this.id)
             .then(function (response){
                 console.log(response)
                 if (response.status === 200){
-                self.$router.push('Accueil')
+                    alert('votre post a été supprimé avec succès')
+                self.$router.push('/accueil')
          }
        })
-
             .catch((error)=>{console.log(error.message)})
         }
     }
@@ -122,17 +114,12 @@ export default {
 background-color:#fdebeb;
 display: flex;
 flex-direction: column;
-align-items: center;
 width:fit-content;
 border-radius:20px;
 }
 .post_body{
 padding-left: 0;
-background-color: tomato;
 width:fit-content;
-display: flex;
-flex-direction: column;
-align-items: center;
 list-style-type: none;
 }
 .post{
@@ -145,5 +132,19 @@ list-style-type: none;
      list-style-type: none;
      display: flex;
     justify-content: center;
+}
+button{
+    background-color:#fdd7d7 ;
+    border: none; 
+    border-radius:5px;
+    font-weight: bold;
+    width: 33%;
+    height:100%;
+}
+#boutons{
+    width: 100%;
+    height:5%;
+    display: flex;
+    justify-content: space-around;
 }
 </style>
