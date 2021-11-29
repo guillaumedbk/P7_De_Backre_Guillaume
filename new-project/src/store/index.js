@@ -10,7 +10,11 @@ export default new Vuex.Store({
     token:'',
     userId:'',
     prenom:'Henry',
-    nom: 'Dupond'
+    nom: 'Dupond',
+    user:{
+      userId:-1,
+      token:''
+    },
   },
   mutations: {
     //Mettre à jour, modifier le state
@@ -29,30 +33,7 @@ export default new Vuex.Store({
   },
   actions: {
     //Logique pour gérer les mutation
-/*
-        ////LOGIN
-        login:({commit}, userInfos) =>{
-          commit('setStatus', 'loading');
 
-          fetch("http://localhost:3000/api/auth/login", {
-            method: 'POST',
-            headers: { 
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(userInfos) 
-          })
-          .then((response) =>{
-            console.log(JSON.stringify(response))
-          //  commit('setStatus', '')
-          //  commit('logUser', response.data)
-          })
-          .catch((error)=>{
-          //  commit('setStatus', 'error_login')
-            console.log(error.json(error))
-          })
-        },
-*/
     ////INSCRIPTION
     createAccount:({commit}, user) => {
         commit;

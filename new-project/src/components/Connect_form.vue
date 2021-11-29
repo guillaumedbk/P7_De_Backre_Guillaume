@@ -33,6 +33,7 @@ export default {
 return {
   email:'',
   password:'',
+  connect:"",
   }
 },
 
@@ -43,8 +44,10 @@ computed:{
  methods:{
 
    login(e){
+     this.$store.commit('setStatus', 'loading');
    e.preventDefault()
       const self = this;
+     // const etat = this.connect;
       const userInfos ={
        email: this.email,
        password:this.password
@@ -58,18 +61,30 @@ computed:{
             },
             body: JSON.stringify(userInfos) 
           })
-          .then(response => response.json())
+          
+          .then((response) => response.json())
+        
           .then((response) =>{
+            console.log(response)
             console.log(JSON.stringify(response))
-            self.$store.commit('userId', response.userId)
-            self.$store.commit('userToken', response.token)
-            self.$router.push('Accueil')
-          //  commit('setStatus', '')
-          //  commit('logUser', response.data)
+            console.log(self.connect)
+         
+            if(response.status == 200){
+                self.$store.commit('setStatus', '');
+                  self.$store.commit('logUser', response.data)
+
+                  self.$store.commit('userId', response.userId)
+                  self.$store.commit('userToken', response.token)
+                      //Redirection si connecté
+                      self.$router.push('/accueil')
             
+            }else{
+              alert(response.error)
+            }
           })
           .catch((error)=>{
             console.log("catch"+error)
+            self.$store.commit('setStatus', 'error_login');
           })
    }
    

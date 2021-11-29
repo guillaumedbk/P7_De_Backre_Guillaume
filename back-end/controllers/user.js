@@ -43,12 +43,13 @@ exports.signup = (req, res, next)=>{
           console.log({error:'Mot de passe incorrect !' } )
         }else{
           res.status(200).json({ 
+            status: 200,
             userId: user.id,
             token: jwt.sign(
-              { userId: user.id },
+              { status: 200, userId: user.id },
               process.env.TOKEN_SECRET,
               { expiresIn: '24h' }
-            )
+            ),
           });
         }
        
