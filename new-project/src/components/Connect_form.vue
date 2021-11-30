@@ -76,6 +76,7 @@ computed:{
                   self.$store.commit('userId', response.userId)
                   self.$store.commit('userToken', response.token)
           
+                  localStorage.setItem('le_user', JSON.stringify(response))
                       //Redirection si connecté
                       self.$router.push('/accueil')
             

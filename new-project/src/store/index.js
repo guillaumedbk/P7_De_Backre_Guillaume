@@ -1,11 +1,32 @@
 import Vue from 'vue'
+//import { axios } from 'vue/types/umd';
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+let le_user = localStorage.getItem('le_user');
+if (!le_user) {
+ le_user = {
+    userId: -1,
+    token: '',
+  }; 
+} else {
+  try {
+    le_user = JSON.parse(le_user);
+   
+  } catch (ex) {
+    le_user = {
+      userId: -1,
+      token: '',
+    };
+  }
+}
+
+
 export default new Vuex.Store({
   state: {
     //Data Store global
+    le_user : le_user,
     status:'',
     token:'',
     userId:'',
@@ -26,6 +47,9 @@ export default new Vuex.Store({
     },
     user: function(state, id){
       state.user = id;
+    },
+    le_user: function(state, id){
+      state.le_user = id;
     }
   },
   actions: {

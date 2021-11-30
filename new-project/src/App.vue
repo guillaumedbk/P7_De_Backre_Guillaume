@@ -5,8 +5,11 @@
       <router-link to="/inscription">Inscription</router-link>
 
       
-        <button v-if="user == -1" class="disconnect">Déconnecté</button>
-        <button v-else class="connect">Connecté</button>
+        <button v-if="this.$store.state.le_user == -1" class="disconnect">Déconnecté</button>
+        <button v-else class="connect">Connecté</button><br>
+
+        <button id="bouton" @click="deconnexion">Déconnexion</button>
+        
    
     </div>
     <router-view/>
@@ -25,8 +28,17 @@ return {
   }
 },
 computed:{
-    ...mapState(['user'])
+    ...mapState(['le_user'])
   },
+
+methods:{
+  deconnexion(){
+    this.$store.commit('le_user', -1)  
+    localStorage.setItem('le_user', "")
+    console.log(this.$store.state.le_user)
+    this.$router.push('/')
+  }, 
+}
 }
 </script>
 
@@ -61,7 +73,7 @@ computed:{
 
 .disconnect{
   background-color:rgba(255, 0, 0, 0.473);
-   width:10%;
+   width:fit-content;
   
     border:none;
     border-radius:20px;
