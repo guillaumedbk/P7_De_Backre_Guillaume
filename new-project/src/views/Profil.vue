@@ -38,7 +38,7 @@ export default {
 mounted(){
   const self = this;
   console.log(this.$store.state.user)
-  if(this.$store.state.user == -1){
+  if(this.$store.state.le_user == -1){
     self.$router.push('/')
   }else{
     axios

@@ -32,7 +32,15 @@ export default new Vuex.Store({
     userId:'',
     prenom:'',
     nom: '',
-    user:-1
+    user:-1,
+    userInfos:{
+      bio:"",
+      email:"",
+      id:"",
+      isAdmin:"",
+      nom:"",
+      prenom:""
+    }
   },
   mutations: {
     //Mettre à jour, modifier le state
@@ -50,6 +58,9 @@ export default new Vuex.Store({
     },
     le_user: function(state, id){
       state.le_user = id;
+    },
+    userInfos: function(state, data){
+      state.userInfos = data;
     }
   },
   actions: {
