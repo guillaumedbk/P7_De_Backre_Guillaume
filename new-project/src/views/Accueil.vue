@@ -71,7 +71,7 @@ mounted(){
     })
 
     axios
-        .get("http://localhost:3000/api/auth/user/"+this.$store.state.user)
+        .get("http://localhost:3000/api/auth/user/"+this.$store.state.le_user.userId)
 
         .then(response => {
             this.userData = response.data;
