@@ -55,7 +55,7 @@ export default {
       formData.append('file',this.file)
       formData.append('texte', this.texte )
    
-        await axios.post("http://localhost:3000/api/post/uploads/"+this.id, formData, {headers:  {'authorization' : 'bearer ' + token}})  
+      await axios.post("http://localhost:3000/api/post/uploads/"+this.id, formData, {headers:  {'authorization' : 'bearer ' + token}})  
         
        .then(function (response){
                 console.log(response)

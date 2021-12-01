@@ -6,6 +6,7 @@ const passwordValidator = require ('../middleware/passwordValidator');
 const { Sequelize } = require("sequelize");
 const Model = require('../models');
 const utils = require('../utils/token');
+const { enc } = require('crypto-js');
 
 require('dotenv').config()
 
@@ -13,7 +14,9 @@ exports.signup = (req, res, next)=>{
     var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
     var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
     let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
-
+    var decrypted = CryptoJS.AES.decrypt(encryptedMail, key, { iv: iv }).toString();  
+    let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
+    
         //Ajout de l'utilisateur
         bcrypt.hash(req.body.password, 10)
         .then((hash) =>{
@@ -25,22 +28,21 @@ exports.signup = (req, res, next)=>{
             bio: req.body.bio,
             isAdmin: true
           })
-          .then(()=> res.status(200).json({ message : 'objet enregistré' }))
+         // .then((encryptedMail)=> {console.log(decrypted.toString(CryptoJS.enc.Utf8))})
+          .then(()=> res.status(200).json({ message : 'objet enregistré'}))
         })
         .catch(error => res.status(400).json({ error }));
     }
    
   exports.login = (req, res, next) => {
-    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
-    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
-    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
 
     Model.Users.findOne({ 
       attributes:['id', 'email', 'password'],
-      where: {email: encryptedMail} 
+      where: {email: req.body.email} 
     })
     .then(user =>{
       if(!user){
+        
         return res.status(401).json( {error : 'Utilisateur non trouvé !'} ),
         console.log({error: 'Utilisateur non trouvé !'} )
     }else{
