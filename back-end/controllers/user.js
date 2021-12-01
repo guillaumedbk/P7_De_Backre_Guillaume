@@ -10,11 +10,15 @@ const utils = require('../utils/token');
 require('dotenv').config()
 
 exports.signup = (req, res, next)=>{
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
+
         //Ajout de l'utilisateur
         bcrypt.hash(req.body.password, 10)
         .then((hash) =>{
           Model.Users.create({
-            email: req.body.email,
+            email: encryptedMail,
             password: hash,
             prenom: req.body.prenom,
             nom: req.body.nom,
@@ -27,9 +31,13 @@ exports.signup = (req, res, next)=>{
     }
    
   exports.login = (req, res, next) => {
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
+
     Model.Users.findOne({ 
       attributes:['id', 'email', 'password'],
-      where: {email: req.body.email } 
+      where: {email: encryptedMail} 
     })
     .then(user =>{
       if(!user){
@@ -67,9 +75,12 @@ exports.getUser = (req, res, next) => {
       .then(user =>res.status(200).json({ user: user }))
     .catch(error => res.status(400).json({ error }))
 }
-
+//
 exports.modifyUser = (req, res, next) =>{
-  
+  var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+  var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+  let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
+ 
   let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
   const id = decodeToken.userId;
 
@@ -84,7 +95,7 @@ exports.modifyUser = (req, res, next) =>{
           Model.Users.findOne({where: {id : id}})
             .then((users)=>{
               users.update({
-                email: req.body.email,
+                email: encryptedMail,
                 password: hash,
                 prenom: req.body.prenom,
                 nom: req.body.nom,
@@ -100,7 +111,7 @@ exports.modifyUser = (req, res, next) =>{
     }
   }).catch(error => res.status(500).json(error));
 }
-
+//
 exports.deleteUser = (req, res, next) =>{
 
   let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
