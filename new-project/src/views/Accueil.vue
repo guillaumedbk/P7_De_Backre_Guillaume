@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-
+<Header></Header>
     <div id="bienvenue">
       <h1 class="">Bienvenue</h1><br>
       <p class="">Votre flux</p> 
@@ -39,8 +39,14 @@
 
 <script>
 
+import Header from '../components/Header.vue'
+
 export default {
   name: 'Accueil',
+
+components:{
+  Header
+}, 
 
 data(){
   return{

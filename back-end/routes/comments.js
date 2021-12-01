@@ -8,12 +8,13 @@ const multer = require('../middleware/multer-config')
 //Lien avec le controller
 const commentsCtrl = require('../controllers/comments.js');
 const { route } = require('./user');
-
+//Auth
+const auth = require('../middleware/auth')
 
 //Routes
-router.post('/', commentsCtrl.creation);
-router.get('/', commentsCtrl.getAllComments);
-router.get('/:id', commentsCtrl.getOneComment);
+router.post('/', auth, commentsCtrl.creation);
+router.get('/', auth, commentsCtrl.getAllComments);
+router.get('/:id', auth, commentsCtrl.getOneComment);
 
 //router.get('/:id', commentsCtrl.postComments);
 /*

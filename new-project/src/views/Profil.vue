@@ -1,6 +1,6 @@
 <template>
   <div class="profil">
-     
+       <button id="deconnect" @click="deconnexion">Déconnexion</button>
   <ul>
     <li class="post" v-for="profil in personne" :key="profil.id">
         <h1>Bienvenue sur votre profil</h1>
@@ -147,7 +147,14 @@ methods:{
         self.$router.push('/inscription')
         })
       .catch((error)=> {console.log(error.message)})
-    }
+    },
+
+    deconnexion(){
+      this.$store.commit('le_user', -1)  
+      localStorage.setItem('le_user', "")
+      console.log(this.$store.state.le_user)
+      this.$router.push('/')
+  }, 
 }
 }
 </script>

@@ -13,7 +13,10 @@
      <span v-if="status == 'loading'">Connexion en cours..</span>
      <span v-else >Connexion</span>
    </button>
-    
+   
+    <p id="inscription">Pas encore inscrit ?
+    <router-link to="/inscription" class="routerlink">Inscription</router-link>
+    </p>
 </form>
  
 </div>
@@ -45,6 +48,7 @@ computed:{
 
    login(e){
      this.$store.commit('setStatus', 'loading');
+     
    e.preventDefault()
       const self = this;
      // const etat = this.connect;
@@ -57,7 +61,7 @@ computed:{
             method: 'POST',
             headers: { 
             'Accept': 'application/json', 
-            'Content-Type': 'application/json' 
+            'Content-Type': 'application/json',
             },
             body: JSON.stringify(userInfos) 
           })
@@ -164,5 +168,12 @@ input[type="password"]:focus{
     padding: 1rem;
     transition: all .3s;
     box-shadow: 4px 4px 60px rgba(0, 0, 0, .2);
+}
+#inscription{
+  padding-top: 20px;
+}
+.routerlink{
+  
+  color: rgba(0, 0, 0, 0.616);
 }
 </style>

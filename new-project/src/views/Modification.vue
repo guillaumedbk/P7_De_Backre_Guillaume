@@ -51,8 +51,12 @@ name:'Modification',
   },
   
   mounted(){
+    let tokenLocal = localStorage.getItem('le_user')
+    let object = JSON.parse(tokenLocal)
+    let token = object.token;
+
     axios
-    .get("http://localhost:3000/api/post/"+this.id)
+    .get("http://localhost:3000/api/post/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
 
     
     .then(response =>
@@ -95,30 +99,20 @@ name:'Modification',
       formData.append('file',this.file)
       formData.append('texte', texteInput)
       
-    
-/*
+      let tokenLocal = localStorage.getItem('le_user')
+      let object = JSON.parse(tokenLocal)
+      let token = object.token;
+      const self = this;
+
       axios
-      .put("http://localhost:3000/api/post/"+id, formData)
+      .put("http://localhost:3000/api/post/"+id, formData,  {headers:  {'authorization' : 'bearer ' + token}})
 
-      .then(response => console.log(response))
-
+      .then(response => {
+      alert ('votre post a bien été modifié')
+      console.log(response)
+      self.$router.push('/accueil')
+      })
       .catch((err)=> console.log(err))
-
-*/
-    let tokenLocal = localStorage.getItem('le_user')
-    let object = JSON.parse(tokenLocal)
-    let token = object.token;
-
-      fetch("http://localhost:3000/api/post/"+id, {
-          method: 'PUT',
-          headers: { 
-           'Authorization' : 'bearer ' + token
-          }, 
-          body: (formData)
-  })
-   // .then(response => response.json())
-    .then(response => console.log(response))
-    .catch((err)=> console.log(err))
 
       }
   }

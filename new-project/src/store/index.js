@@ -68,14 +68,15 @@ export default new Vuex.Store({
 
     ////INSCRIPTION
     createAccount:({commit}, user) => {
-    
+     
         commit('setStatus', 'loading')
 
         fetch("http://localhost:3000/api/auth/signup", {
           method: 'POST',
           headers: { 
           'Accept': 'application/json', 
-          'Content-Type': 'application/json' 
+          'Content-Type': 'application/json',
+       
           },
           body: JSON.stringify(user) 
       })

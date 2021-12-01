@@ -40,8 +40,12 @@ export default {
     const postId = this.postId;
     console.log(id)
     const commentaire = {userId: self.id, postId: self.postId, texte: self.texte}
+
+    let tokenLocal = localStorage.getItem('le_user')
+    let object = JSON.parse(tokenLocal)
+    let token = object.token;
    
-    axios.post('http://localhost:3000/api/comments',commentaire)  
+    axios.post('http://localhost:3000/api/comments',commentaire, {headers:  {'authorization' : 'bearer ' + token}})  
         //this.message = 'Uploaded!!'
        .then(function (response){
          console.log(response)

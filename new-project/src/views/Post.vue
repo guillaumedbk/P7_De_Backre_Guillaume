@@ -61,7 +61,7 @@ export default {
 
           if(this.$store.state.user != -1){
         axios
-        .get("http://localhost:3000/api/post/"+this.id)
+        .get("http://localhost:3000/api/post/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
         
         .then(response => {
             
@@ -85,7 +85,7 @@ export default {
               self.$router.push('/')
           }
      axios
-     .get("http://localhost:3000/api/comments/"+this.id)
+     .get("http://localhost:3000/api/comments/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
      .then(response => this.comments = response.data.comment)
      .catch((error) =>{
         console.log(error.message)

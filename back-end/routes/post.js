@@ -13,11 +13,11 @@ const auth = require('../middleware/auth')
 //Routes
 //router.post('/', postCtrl.creation);
 router.get('/', auth, postCtrl.getAllPost);
-router.get('/:id', postCtrl.getOnePost);
-router.put('/:id', multer, postCtrl.modifyOnePost);
-router.delete('/:id', postCtrl.deleteOne);
+router.get('/:id', auth, postCtrl.getOnePost);
+router.put('/:id', auth, multer, postCtrl.modifyOnePost);
+router.delete('/:id', auth, postCtrl.deleteOne);
 //router.post('/:id/like', postCtrl.like);
-router.post('/uploads/:id', multer, postCtrl.addPost)
+router.post('/uploads/:id', auth, multer, postCtrl.addPost)
 
 //Export
 module.exports = router;

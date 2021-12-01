@@ -15,7 +15,7 @@ exports.signup = (req, res, next)=>{
     var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
     let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
     var decrypted = CryptoJS.AES.decrypt(encryptedMail, key, { iv: iv }).toString();  
-    let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
+   // let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
     
         //Ajout de l'utilisateur
         bcrypt.hash(req.body.password, 10)
@@ -35,10 +35,16 @@ exports.signup = (req, res, next)=>{
     }
    
   exports.login = (req, res, next) => {
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
+    var decrypted = CryptoJS.AES.decrypt(encryptedMail, key, { iv: iv }).toString();  
+    let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
 
+    
     Model.Users.findOne({ 
       attributes:['id', 'email', 'password'],
-      where: {email: req.body.email} 
+      where: {email: encryptedMail} 
     })
     .then(user =>{
       if(!user){
