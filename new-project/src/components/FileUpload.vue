@@ -46,18 +46,22 @@ export default {
 
     async onSubmit(){
       const self=this;
+      let tokenLocal = localStorage.getItem('le_user')
+      let object = JSON.parse(tokenLocal)
+      let token = object.token;
 
       const formData = new FormData()
       formData.append('userId', this.id)
       formData.append('file',this.file)
       formData.append('texte', this.texte )
    
-        await axios.post("http://localhost:3000/api/post/uploads/"+this.id, formData)  
-        //this.message = 'Uploaded!!'
+        await axios.post("http://localhost:3000/api/post/uploads/"+this.id, formData, {headers:  {'authorization' : 'bearer ' + token}})  
+        
        .then(function (response){
-         console.log(response)
-         if (response.status === 200){
-           self.$router.push({ name: 'Accueil'})
+                console.log(response)
+                if (response.status === 200){
+                    alert('votre post a été supprimé avec succès')
+                self.$router.push('/accueil')
          }
        })
         .catch(function (error) {

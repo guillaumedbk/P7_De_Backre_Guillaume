@@ -8,10 +8,6 @@
                     <ul> 
                         <li  v-for="user in userData" :key="user.id">  
                                 <p>Publié par {{ user.prenom }} :</p>
-                                <p>User id: {{ user.id }} </p>
-                                <p>id actuel : {{ $store.state.le_user.userId}} </p>
-                        
-                     <p>is admin ?: {{ $store.state.userInfos.user.isAdmin }} </p>
                     
                     <h3>{{ post.texte }}</h3><br>
                     
@@ -62,7 +58,7 @@ export default {
         let object = JSON.parse(tokenLocal)
         let token = object.token;
         const self = this;
-        
+
           if(this.$store.state.user != -1){
         axios
         .get("http://localhost:3000/api/post/"+this.id)
@@ -98,9 +94,13 @@ export default {
     },
     methods:{
         deletePost(){
+            let tokenLocal = localStorage.getItem('le_user')
+            let object = JSON.parse(tokenLocal)
+            let token = object.token;
             const self=this;
+            
             axios
-            .delete("http://localhost:3000/api/post/"+this.id)
+            .delete("http://localhost:3000/api/post/"+this.id,  {headers:  {'authorization' : 'bearer ' + token}})
             .then(function (response){
                 console.log(response)
                 if (response.status === 200){

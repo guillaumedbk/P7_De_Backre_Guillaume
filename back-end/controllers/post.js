@@ -9,29 +9,7 @@ const upload = multer({
     dest: './uploads',
 })
 
-
-
 //CREATION D'UN POST
-/*
-exports.creation = (req, res, next) =>{
-    //Récupérer l'id 
- //   let decodeToken = jwt.verify(req.headers.authorization, process.env.TOKEN_SECRET);
-  //  let id = decodeToken.userId; 
-
-    //Enregistrement du post
-    Model.Posts.create({
-  //      UserId: id,
-        UserId: 1,
-        texte: req.body.texte,
-       // imageUrl:req.body.imageUrl,
-        imageUrl: "",
-        usersLiked: "",
-        likes: 0
-    })
-    .then(()=> res.status(200).json({ message : 'post enregistré' }))
-    .catch(error => res.status(400).json({ error }))
-}
-*/
 exports.addPost =(req, res, next) => {
     //Enregistrement du post
       Model.Posts.create({
@@ -60,28 +38,58 @@ exports.getOnePost = (req, res, next) =>{
     .then(posts =>res.status(200).json({ posts: posts }))
     .catch(error => res.status(400).json({ error }))
 }
-
+//Modification d'un post
 exports.modifyOnePost = (req, res, next) =>{
-    let id = req.params.id;
-    const postObject = req.file ?
-      {
-        texte: req.body.texte,
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      } : { ...req.body };
-    Model.Posts.findOne({where:{id:id}})
-    .then((post)=>{
-        post.update({
-            ...postObject
-        })
-        .then(() => res.status(200).json({ message: 'Objet modifié !'}))
-        .catch(error => res.status(400).json({ error }));
-    })
+    let postid = req.params.id;
+
+    let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+    const id = decodeToken.userId;
+  
+    //Vérification autorisation
+    Model.Users.findOne({
+        where: {id : id}
+      }).then((user)=>{
+    
+      if(user.id == id || user.isAdmin == true){
+            //logique de modification
+            const postObject = req.file ?
+            {
+                texte: req.body.texte,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            } : { ...req.body };
+            
+            Model.Posts.findOne({where:{id:postid}})
+            .then((post)=>{
+                post.update({
+                    ...postObject
+                })
+                .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+                .catch(error => res.status(400).json({ error }));
+            })
+           
+        }else{
+                res.status(401).json({ error: 'Utilisateur non autorisé à modifier ce post' })
+            }
+    }).catch(error => res.status(500).json(error));
 }
+     
 
 //Suppression d'un post
 exports.deleteOne = (req, res, next) =>{
-    let id = req.params.id;
-    Model.Posts.destroy({where: { id : id}})
+    let postid = req.params.id;
+    let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+    const id = decodeToken.userId;
+ 
+    //Vérification autorisation
+    Model.Users.findOne({
+        where: {id : id}
+    }).then((user)=>{
+        if(user.id == id || user.isAdmin == true){
+    Model.Posts.destroy({where: { id : postid}})
     .then(() => res.status(200).json({ message: 'supprimé !' }))
     .catch(error => res.status(400).json({ error }))
+}else{
+    res.status(401).json({ error: 'Utilisateur non autorisé à modifier ce post' })
+}
+}).catch(error => res.status(500).json(error));
 }
