@@ -81,7 +81,7 @@ export default new Vuex.Store({
       })
       .then((response) =>{
         commit('setStatus', 'created')
-       
+        commit('userInfos', response)
         console.log(response.json(response))
       })
       .catch(function(error){

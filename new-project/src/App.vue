@@ -4,7 +4,7 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/inscription">Inscription</router-link>
 
-      
+
         <button v-if="this.$store.state.le_user == -1" class="disconnect">Déconnecté</button>
         <button v-else class="connect">Connecté</button><br>
 

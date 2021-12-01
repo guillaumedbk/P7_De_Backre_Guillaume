@@ -36,18 +36,25 @@ export default {
     },
 
 mounted(){
-  const self = this;
-  console.log(this.$store.state.user)
-  if(this.$store.state.le_user == -1){
-    self.$router.push('/')
-  }else{
-    axios
-    .get("http://localhost:3000/api/auth/user/"+this.id)
-    
-    .then(response => this.personne = response.data)
-    
-    .catch((error) => {console.log(error.message)})
-  }
+  let tokenLocal = localStorage.getItem('le_user')
+  let object = JSON.parse(tokenLocal)
+  let token = object.token;
+
+  fetch("http://localhost:3000/api/auth/user/"+this.id, {
+          method: 'GET',
+          headers: { 
+           'Authorization' : 'bearer ' + token
+          }, 
+      })
+      .then(response => response.json())
+      .then((response) =>{
+        console.log(response)
+        this.personne = response
+      })
+      .catch(function(error){
+        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+      })
+
 },
 methods:{
     inputChange(){

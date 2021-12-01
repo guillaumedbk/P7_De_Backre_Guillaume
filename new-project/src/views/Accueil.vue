@@ -4,8 +4,8 @@
     <div id="bienvenue">
       <h1 class="">Bienvenue</h1><br>
       <p class="">Votre flux</p> 
-      <button class="bouton_lien"><router-link :to="{ name: 'Creation', params: { id: this.$store.state.userId }}" class="lien_router">Créer un post</router-link></button><br>
-      <button class="bouton_lien"><router-link :to="{ name: 'Profil', params: { id: $store.state.userId }}" class="lien_router">Profil</router-link></button>
+      <button class="bouton_lien"><router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link></button><br>
+      <button class="bouton_lien"><router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></button>
     </div>
 
     <ul id="liste">
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'Accueil',
@@ -56,32 +55,44 @@ data(){
 
 mounted(){
   const self = this;
+  let tokenLocal = localStorage.getItem('le_user')
+  let object = JSON.parse(tokenLocal)
+  let token = object.token;
+  
   if(this.$store.state.le_user != -1){
-
-    axios
-    .get("http://localhost:3000/api/post/")
-
-    
-    .then(response =>
-      this.posts = response.data.posts )
-     
+  //
+  fetch("http://localhost:3000/api/post/", {
+          method: 'GET',
+          headers: { 
+           'Authorization' : 'bearer ' + token
+          }, 
+  })
+    .then(response => response.json())
+    .then((response) =>{
+        this.posts = response.posts
+      })
     .catch((error) =>{
       console.log(error.message)
   
     })
 
-    axios
-        .get("http://localhost:3000/api/auth/user/"+this.$store.state.le_user.userId)
-
-        .then(response => {
-            this.userData = response.data;
-            self.$store.commit('userInfos', response.data)
-            })
-
-        .catch((error) =>{
-        console.log(error.message)})
+  //
+  fetch("http://localhost:3000/api/auth/user/"+this.$store.state.le_user.userId, {
+          method: 'GET',
+          headers: { 
+           'Authorization' : 'bearer ' + token
+          }, 
+  })
+    .then(response => response.json())
+    .then((response) =>{
+        this.userData = response;
+        self.$store.commit('userInfos', response)
+      })
+    .catch((error) =>{
+      console.log(error.message)
+    })
             
-            }else{
+    }else{
    self.$router.push('/')
   }
 },

@@ -8,18 +8,23 @@
                     <ul> 
                         <li  v-for="user in userData" :key="user.id">  
                                 <p>Publié par {{ user.prenom }} :</p>
-                        </li>
-                    </ul>
+                                <p>User id: {{ user.id }} </p>
+                                <p>id actuel : {{ $store.state.le_user.userId}} </p>
+                        
+                     <p>is admin ?: {{ $store.state.userInfos.user.isAdmin }} </p>
                     
                     <h3>{{ post.texte }}</h3><br>
                     
                     <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
                     <div id="boutons">
                         <router-link :to="{ name: 'Commentaire', params: { id: id }}" tag="button">Commenter</router-link>
-                        <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button">Modifier</router-link>
-                        <button @click="deletePost">Supprimer</button>
+                        <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button" v-if="user.id == $store.state.le_user.userId  || $store.state.userInfos.user.isAdmin == true">Modifier</router-link>
+                        <button @click="deletePost" v-if="user.id == $store.state.le_user.userId || $store.state.userInfos.user.isAdmin == true"> Supprimer </button>
                     </div>
-            </li>
+                </li>
+           
+        </ul>
+         </li>
         </ul>
 
        <ul>
