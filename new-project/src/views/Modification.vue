@@ -96,13 +96,29 @@ name:'Modification',
       formData.append('texte', texteInput)
       
     
-
+/*
       axios
       .put("http://localhost:3000/api/post/"+id, formData)
 
       .then(response => console.log(response))
 
       .catch((err)=> console.log(err))
+
+*/
+    let tokenLocal = localStorage.getItem('le_user')
+    let object = JSON.parse(tokenLocal)
+    let token = object.token;
+
+      fetch("http://localhost:3000/api/post/"+id, {
+          method: 'PUT',
+          headers: { 
+           'Authorization' : 'bearer ' + token
+          }, 
+          body: (formData)
+  })
+   // .then(response => response.json())
+    .then(response => console.log(response))
+    .catch((err)=> console.log(err))
 
       }
   }

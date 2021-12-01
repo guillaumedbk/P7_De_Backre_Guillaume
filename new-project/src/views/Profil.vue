@@ -19,6 +19,9 @@
         <p> <input type="submit" value="Soumettre" class="input"/> </p>
        </div>
       </form>
+
+     <button @click="deleteUser">Supprimer mon compte</button>
+
         </li>
   </ul>
   </div>
@@ -107,14 +110,18 @@ methods:{
             nom: nameInput,
             bio: bioInput
         }
-    
+
+    let tokenLocal = localStorage.getItem('le_user')
+    let object = JSON.parse(tokenLocal)
+    let token = object.token;
+
     axios
-      .put("http://localhost:3000/api/auth/usermodifs/"+id, formData)
+      .put("http://localhost:3000/api/auth/usermodifs/"+id, formData, {headers:  {'authorization' : 'bearer ' + token}})
 
       .then(response => {console.log(response)
-    
+
     axios
-    .get("http://localhost:3000/api/auth/user/"+this.id)
+    .get("http://localhost:3000/api/auth/user/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
     
     .then(response => this.personne = response.data)
     
@@ -122,8 +129,24 @@ methods:{
         })
 
       .catch((err)=> console.log(err))
+    },
 
+
+    deleteUser(){
+      let tokenLocal = localStorage.getItem('le_user')
+      let object = JSON.parse(tokenLocal)
+      let token = object.token;
+      const id = this.id;
+      const self = this;
       
+      axios
+      .delete("http://localhost:3000/api/auth/userdelete/"+id,  {headers:  {'authorization' : 'bearer ' + token}})
+      .then(response => {
+        console.log(response)
+        alert('votre compte a bien été supprimé')
+        self.$router.push('/inscription')
+        })
+      .catch((error)=> {console.log(error.message)})
     }
 }
 }

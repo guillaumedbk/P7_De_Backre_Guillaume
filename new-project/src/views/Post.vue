@@ -58,7 +58,11 @@ export default {
     },
 
     mounted(){
+        let tokenLocal = localStorage.getItem('le_user')
+        let object = JSON.parse(tokenLocal)
+        let token = object.token;
         const self = this;
+        
           if(this.$store.state.user != -1){
         axios
         .get("http://localhost:3000/api/post/"+this.id)
@@ -69,7 +73,7 @@ export default {
             this.userId = response.data.posts.userId
         
         axios
-        .get("http://localhost:3000/api/auth/user/"+this.userId)
+        .get("http://localhost:3000/api/auth/user/"+this.userId, {headers:  {'authorization' : 'bearer ' + token}})
 
         .then(response => this.userData = response.data)
 

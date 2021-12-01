@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 const passwordValidator = require ('../middleware/passwordValidator');
 const { Sequelize } = require("sequelize");
-const Model = require('../models')
+const Model = require('../models');
+const utils = require('../utils/token');
 
 require('dotenv').config()
 
@@ -46,7 +47,7 @@ exports.signup = (req, res, next)=>{
             status: 200,
             userId: user.id,
             token: jwt.sign(
-              { status: 200, userId: user.id },
+              { userId: user.id },
               process.env.TOKEN_SECRET,
               { expiresIn: '24h' }
             ),
@@ -68,21 +69,53 @@ exports.getUser = (req, res, next) => {
 }
 
 exports.modifyUser = (req, res, next) =>{
-  let id = req.params.id;
-  bcrypt.hash(req.body.password, 10)
-        .then((hash) =>{
-      Model.Users.findOne({where: {id : id}})
-        .then((users)=>{
-          users.update({
-            email: req.body.email,
-            password: hash,
-            prenom: req.body.prenom,
-            nom: req.body.nom,
-            bio: req.body.bio,
-            idAdmin:true
-          })
-          .then((users) => res.status(200).json({ users }))
-        })
-          .catch(error => res.status(400).json({ error }));
-      })   
+  
+  let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+  const id = decodeToken.userId;
+
+  Model.Users.findOne({
+    where: {id : id}
+  }).then((user)=>{
+
+    if(user.id == id || user.isAdmin == true){
+
+          bcrypt.hash(req.body.password, 10)
+          .then((hash) =>{
+          Model.Users.findOne({where: {id : id}})
+            .then((users)=>{
+              users.update({
+                email: req.body.email,
+                password: hash,
+                prenom: req.body.prenom,
+                nom: req.body.nom,
+                bio: req.body.bio,
+                idAdmin:true
+              })
+              .then((users) => res.status(200).json({ users }))
+            })
+              .catch(error => res.status(400).json({ error }));
+          })   
+    }else{
+      res.status(401).json({ error: 'Utilisateur non autorisé à modifier ce profil' })
+    }
+  }).catch(error => res.status(500).json(error));
+}
+
+exports.deleteUser = (req, res, next) =>{
+
+  let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+  const id = decodeToken.userId;
+
+  Model.Users.findOne({
+    where: {id : id}
+  }).then((user)=>{
+
+  if(user.id == id || user.isAdmin == true){
+  Model.Users.destroy({where: { id : id}})
+    .then(() => res.status(200).json({ message: 'supprimé !' }))
+    .catch(error => res.status(400).json({ error }))
+  }else{
+    res.status(401).json({ error: 'Utilisateur non autorisé à supprimer ce profil' })
+  }
+}).catch(error => res.status(500).json(error));
 }

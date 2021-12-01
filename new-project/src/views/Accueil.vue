@@ -95,13 +95,7 @@ mounted(){
     }else{
    self.$router.push('/')
   }
-},
-
-methods:{
- 
 }
-
-
 }
 </script>
 

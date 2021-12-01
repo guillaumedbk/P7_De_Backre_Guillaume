@@ -1,4 +1,4 @@
-/*
+
 const jwt = require('jsonwebtoken');
 require ('dotenv').config();
 
@@ -7,7 +7,7 @@ module.exports = {
         if (data.length > 1) {
             let token = data.split(' ')[1];
             try {
-              let decodedToken = jwt.verify(token, 'process.env.TOKEN_KEY')
+              let decodedToken = jwt.verify(token, 'process.env.TOKEN_SECRET')
               userId = decodedToken.userId
               return userId
             }
@@ -17,4 +17,3 @@ module.exports = {
           };
     }
 }
-*/
