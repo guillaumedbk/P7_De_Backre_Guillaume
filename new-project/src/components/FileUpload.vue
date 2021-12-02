@@ -1,6 +1,6 @@
 <template>
   <div class="file">
-   <form @submit.prevent="onSubmit" enctype="multipart/form-data">
+   <form @submit.prevent="onSubmit" enctype="multipart/form-data" id="createpost">
       <div class="fields">
         <label>Upload File</label><br/>
       <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" class="input" required/></p>
@@ -108,5 +108,10 @@ export default {
   display: flex;
   justify-content: center;
 }
-
+#createpost{
+  background:rgba(255,255,255, .3);
+ border-radius:25px;
+padding:1em;
+  
+}
 </style>
