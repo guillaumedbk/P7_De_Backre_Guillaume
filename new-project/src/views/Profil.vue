@@ -1,6 +1,7 @@
 <template>
   <div class="profil">
-       <button id="deconnect" @click="deconnexion">Déconnexion</button>
+     <Header></Header>
+   
   <ul>
     <li class="post" v-for="profil in personne" :key="profil.id">
         <h1>Bienvenue sur votre profil</h1>
@@ -20,7 +21,12 @@
        </div>
       </form>
 
-     <button @click="deleteUser">Supprimer mon compte</button>
+<div>
+  <h2>Vous souhaitez supprimer votre compte ?</h2>
+    <button @click="deleteUser">Supprimer mon compte</button>
+
+</div>
+ 
 
         </li>
   </ul>
@@ -29,8 +35,12 @@
 
 <script>
 import axios from 'axios'
+import Header from '../components/Header.vue'
 export default {
      name:'Profile',
+      components:{
+  Header
+}, 
     data(){
         return{
             id:this.$route.params.id,
@@ -190,6 +200,7 @@ li{
 .profil{
   display:flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 #info{
   display: flex;

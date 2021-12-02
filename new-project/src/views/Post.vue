@@ -1,12 +1,14 @@
 <template>
   <div class="flex-center">
+  <Header></Header>
+     
       <div class="post_design">
 
         <ul class="post_body">
             <li  v-for="post in posts" :key="post.id">  
 
                     <ul> 
-                        <li  v-for="user in userData" :key="user.id">  
+                        <li  v-for="user in userData" :key="user.id" id="publiep">  
                                 <p>Publié par {{ user.prenom }} :</p>
                     
                     <h3>{{ post.texte }}</h3><br>
@@ -32,14 +34,18 @@
             </li>
         </ul>
     </div>
+   
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-
+import Header from '../components/Header.vue'
 export default {
     name:'Post',
+    components:{
+  Header
+}, 
     data(){
         return{
             id:this.$route.params.id,
@@ -51,7 +57,9 @@ export default {
             userData: ""
             
         }    
+        
     },
+   
 
     mounted(){
         let tokenLocal = localStorage.getItem('le_user')
@@ -119,18 +127,22 @@ export default {
 .flex-center{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .post_design{
 background-color:#fdebeb;
 display: flex;
+align-items:  center;
 flex-direction: column;
 width:fit-content;
 border-radius:20px;
+margin-top: 2em;
 }
 .post_body{
 padding-left: 0;
 width:fit-content;
 list-style-type: none;
+
 }
 .post{
     list-style-type: none;
@@ -156,5 +168,9 @@ button{
     height:5%;
     display: flex;
     justify-content: space-around;
+}
+ul{
+    padding-left:2.3em;
+    padding-right:1em;
 }
 </style>
