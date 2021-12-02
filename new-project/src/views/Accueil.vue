@@ -1,13 +1,13 @@
 <template>
   <div id="app">
 <Header></Header>
-    <div id="bienvenue">
-      <h1 class="">Bienvenue</h1><br>
-      <p class="">Votre flux</p> 
-      <button class="bouton_lien"><router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link></button><br>
-      <button class="bouton_lien"><router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></button>
-    </div>
 
+
+    <div id="bienvenue">
+         <h1 class="titre_accueil">Bonjour {{ $store.state.userInfos.user.prenom}} ! </h1><br>
+    </div>
+        <h3>Voici les dernières nouvelles</h3>
+    
     <ul id="liste">
       <li class="post_accueil" v-for="post in posts" :key="post.id"> 
  
@@ -111,9 +111,14 @@ mounted(){
 }
 #bienvenue{
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+}
+.titre_accueil{
+  display: flex;
+}
+.vflux{
+  text-align: center;
 }
 .post_accueil{
   list-style-type: none;

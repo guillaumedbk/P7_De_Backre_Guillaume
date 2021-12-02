@@ -6,8 +6,8 @@
         </div>
         
         <div class="coordonnées">
-            <p class="vingt">{{ $store.state.userInfos.user.prenom}}</p>
-             <p class="vingt">{{ $store.state.userInfos.user.nom}}</p>
+            <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link><br>
+            <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link>
              <button id="deconnect" @click="deconnexion">Déconnexion</button>
         </div>
  
@@ -53,14 +53,20 @@ export default {
     border-radius: 25px;
     height: 50px;
     width: 130px;
+    font-weight: bold;
 }
 .coordonnées{
     width: 40%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
 }
 .vingt{
     width:20%;
+}
+.lien_router{
+   font-weight: bold;
 }
 </style>

@@ -58,9 +58,5 @@ h1, h2{
   flex-wrap: wrap;
   justify-content: center;
 }
-p{
-  width:100%;
-  display: flex;
-  justify-content: space-between;
-}
+
 </style>

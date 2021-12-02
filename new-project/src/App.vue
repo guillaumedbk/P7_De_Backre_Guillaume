@@ -1,15 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-     <!-- <router-link to="/">Home</router-link> |
-      <router-link to="/inscription">Inscription</router-link>
--->
-<!--
-        <button v-if="this.$store.state.le_user == -1" class="disconnect">Déconnecté</button>
-        <button v-else class="connect">Connecté</button><br>
--->
-      
-        
+
+ 
+ 
    
     </div>
     <router-view/>
@@ -21,6 +15,10 @@ import { mapState } from 'vuex'
 
 export default {
     name:'App',
+
+    components:{
+
+    },
 
     data: function(){
 return {
@@ -55,20 +53,6 @@ computed:{
       color: #fdd7d7;
     }
   }
-}
-.connect{
-  background-color:green;
-  width:10%;
-    border:none;
-    border-radius:20px;
-}
-
-.disconnect{
-  background-color:rgba(255, 0, 0, 0.473);
-   width:fit-content;
-  
-    border:none;
-    border-radius:20px;
 }
 </style>
 
