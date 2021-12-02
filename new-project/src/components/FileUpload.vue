@@ -74,31 +74,6 @@ export default {
         })
     } ,
 
-        
-/*
-    postFetch(){
-   // const self=this;
-       const formData = new FormData()
-      formData.append('file',this.file)
-      formData.append('texte', this.texte )
-
-    fetch('http://localhost:3000/api/post/uploads',{
-                method: 'POST',
-                 headers: { 
-                'Accept': 'application/json', 
-                'Content-Type': 'application/json' 
-                },
-                body: formData 
-            })
-      .then((response) =>{
-        console.log(response.json(response))
-      })
-      .catch(function(error){
-        alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-      })
-
-    }
-  */
   },
 }
 </script>
