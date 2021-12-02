@@ -89,14 +89,32 @@ exports.getUser = (req, res, next) => {
     Model.Users.findOne({
       where: {id : id}}
       )
-      .then(user =>res.status(200).json({ user: user }))
+      .then(user =>{
+        
+         // Decrypt
+        var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+        var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+        var bytes  = CryptoJS.AES.decrypt(user.email, key, { iv: iv });
+        var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+
+        res.status(200).json({ 
+          user: {
+            email: decryptedData, 
+            password: user.password,
+            prenom: user.prenom,
+            nom: user.nom,
+            bio: user.bio,
+            isAdmin: user.isAdmin
+          }
+        })
+      })
     .catch(error => res.status(400).json({ error }))
 }
 //
 exports.modifyUser = (req, res, next) =>{
   var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
   var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
-  let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
+  let encryptedMail = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString();
  
   let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
   const id = decodeToken.userId;

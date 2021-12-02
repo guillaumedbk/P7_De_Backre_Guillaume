@@ -130,7 +130,10 @@ methods:{
     axios
       .put("http://localhost:3000/api/auth/usermodifs/"+id, formData, {headers:  {'authorization' : 'bearer ' + token}})
 
-      .then(response => {console.log(response)
+      .then(response => {
+        
+        console.log(response)
+        alert('Votre profil a été modifié avec succès !')
 
     axios
     .get("http://localhost:3000/api/auth/user/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
