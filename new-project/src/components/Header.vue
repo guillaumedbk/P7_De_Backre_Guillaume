@@ -6,6 +6,7 @@
         </div>
         
         <div class="coordonnées">
+            <router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link>
             <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link><br>
             <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link>
              <button id="deconnect" @click="deconnexion">Déconnexion</button>
@@ -68,5 +69,6 @@ export default {
 }
 .lien_router{
    font-weight: bold;
+
 }
 </style>

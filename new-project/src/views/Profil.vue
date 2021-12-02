@@ -36,6 +36,7 @@
 <script>
 import axios from 'axios'
 import Header from '../components/Header.vue'
+
 export default {
      name:'Profile',
       components:{
@@ -44,7 +45,8 @@ export default {
     data(){
         return{
             id:this.$route.params.id,
-            personne:""
+            personne:"",
+            email:""
         }    
     },
 
@@ -61,8 +63,8 @@ mounted(){
       })
       .then(response => response.json())
       .then((response) =>{
-        console.log(response)
         this.personne = response
+        this.email = response.user.email
       })
       .catch(function(error){
         alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
@@ -165,6 +167,8 @@ methods:{
       console.log(this.$store.state.le_user)
       this.$router.push('/')
   }, 
+
+  
 }
 }
 </script>

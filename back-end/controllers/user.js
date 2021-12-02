@@ -8,6 +8,9 @@ const Model = require('../models');
 const utils = require('../utils/token');
 const { enc } = require('crypto-js');
 
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('myTotalySecretKey');
+
 require('dotenv').config()
 
 exports.signup = (req, res, next)=>{
@@ -35,13 +38,22 @@ exports.signup = (req, res, next)=>{
     }
    
   exports.login = (req, res, next) => {
-    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
-    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
-    let encryptedMail = CryptoJS.AES.encrypt(req.body.mail, key, { iv: iv }).toString();
-    var decrypted = CryptoJS.AES.decrypt(encryptedMail, key, { iv: iv }).toString();  
-    let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
 
     
+    var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
+    var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+    let encryptedMail = CryptoJS.AES.encrypt(JSON.stringify(req.body.mail), key, { iv: iv }).toString();
+    
+    // Decrypt
+    var bytes  = CryptoJS.AES.decrypt(encryptedMail, key);
+    var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+    console.log(decryptedData);
+    console.log(encryptedMail)
+   
+   
+
+
     Model.Users.findOne({ 
       attributes:['id', 'email', 'password'],
       where: {email: encryptedMail} 
