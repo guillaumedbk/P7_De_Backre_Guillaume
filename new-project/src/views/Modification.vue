@@ -1,24 +1,29 @@
 <template>
 
   <div class="file">
+    <Header></Header>
+    
     <ul id="liste">
       <li class="post" v-for="post in posts" :key="post.id"> 
 
+        <div id="actuel">
         <h2>Votre post:</h2>
         <p class="center" id="titre">{{ post.texte }}</p>
         <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
+        </div>
 
-        <h2>Entrez vos modifications:</h2>
 
-     <form @submit.prevent="onSubmit" enctype="multipart/form-data">
-     
-        
-      <p> <input type="text" :value= post.texte name="texte" id="texte" class="input" @click="inputChange"/></p>
+        <form @submit.prevent="onSubmit" enctype="multipart/form-data" id="modiff" class="margin">
+            <h2>Entrez vos modifications:</h2>
+    
+            <p> <input type="text" :value= post.texte name="texte" id="texte" class="input" @click="inputChange"/></p>
 
-      </form>
+        </form>
+         
       </li>
-</ul>
-<form @submit.prevent="onSubmit" enctype="multipart/form-data">
+
+
+       <form @submit.prevent="onSubmit" enctype="multipart/form-data"  class="width"> 
       
       <label>Upload File</label><br/>
        <p> <input type="file" ref="file" @change="onSelect"/></p>
@@ -29,15 +34,23 @@
       <div class="message">
         <h5>{{message}}</h5>
       </div>
-   </form>
  
+   </form>
+   
+ </ul>
   </div>
+ 
 </template>
 
 <script>
 import axios from 'axios';
+import Header from '../components/Header.vue'
 export default {
 name:'Modification',
+
+components:{
+  Header
+}, 
 
   data() {
     return {
@@ -120,6 +133,14 @@ name:'Modification',
 </script>
 
 <style>
+#liste{
+  
+  height: fit-content;
+  width: 50%;
+}
+.margin{
+  margin-top: 1em;
+}
 .image_posts{
   width:100px;
 }
@@ -127,5 +148,29 @@ name:'Modification',
   display: flex;
   justify-content: center;
   font-size: 2em;
+}
+.file{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+#actuel{
+  background:rgba(255,255,255, .3);
+  padding : 2em;
+  width: 100%;
+  border-radius: 20px ;
+}
+#modiff{
+  background:rgba(255,255,255, .3);
+  padding : 2em;
+ width:100%;
+  
+}
+.width{
+  width: 67.8%;
+  background:rgba(255,255,255, .3);
+  padding : 2em;
+
 }
 </style>

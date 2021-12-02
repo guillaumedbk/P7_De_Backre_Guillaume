@@ -1,7 +1,8 @@
 <template>
   <div>
-      <h1>Créez votre post</h1>
       
+      <Header></Header>
+      <h1>Créez votre post</h1>
       <FileUpload></FileUpload>
       
   </div>
@@ -10,12 +11,13 @@
 <script>
 
 import FileUpload from '../components/FileUpload.vue'
-
+import Header from '../components/Header.vue'
 
 export default {
     name:'Creation',
     components: {
-        FileUpload
+        FileUpload,
+        Header
   }, 
   data(){
   return{
