@@ -1,9 +1,9 @@
 <template>
-  <div class="modal" id="modal">
+  <div class="comment" id="comment">
 
-      <div class="modal-header">
+      <div class="comment-header">
           <h2>Votre commentaire:</h2>
-           <button data-close-button class="close-button">&times;</button>
+          
       </div>
 
       <div>
@@ -62,32 +62,31 @@ export default {
 </script>
 
 <style>
-.modal{
+.comment{
     position:fixed;
     top:50%;
     left:50%;
     transform: translate(-50%, -50%);
-    border: 1px solid black;
+    border: none;
     border-radius: 10px;
     z-index:10;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.336);
     width:500px;
     max-width: 80%;
 
     overflow: -moz-hidden-unscrollable;
 }
-.modal-header{
+.comment-header{
     padding:10px 15px;
     display:flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid black;
 }
 h2{
     font-size:1.25 rem;
     font-weight: bold;
 }
-.modal-header .close-button {
+.modal-header .close {
   cursor: pointer;
   border: none;
   outline: none;
@@ -96,7 +95,8 @@ h2{
   font-weight: bold;
 }
 #commentaire{
-    width:99%;
+    width:100%;
     border:none;
+    background-color: rgba(255, 255, 255, 0.336);
 }
 </style>

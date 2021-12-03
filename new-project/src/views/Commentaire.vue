@@ -1,18 +1,21 @@
 <template>
 <div>
+  <Header />
 <h1>COMMENTAIRE</h1>
-  <CommentPopup></CommentPopup>
+  <CommentPopup />
 
 </div>
 </template>
 
 <script>
 import CommentPopup from '../components/CommentPopup.vue'
+import Header from '../components/Header.vue'
 export default {
 name: 'commmentaire',
 
 components:{
-    CommentPopup
+    CommentPopup,
+    Header
 }
 }
 </script>
