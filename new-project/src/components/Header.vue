@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+<!--  <div class="header">
         <div class="logotitre">
             <img id="logo" alt="logo" src="../assets/icon.svg">
             <h2 class="titre_header">Groupomania</h2>
@@ -9,13 +9,40 @@
             <router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link>
             <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link><br>
             <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link>
-             <button id="deconnect" @click="deconnexion">Déconnexion</button>
         </div>
+           <div> 
+             <button id="deconnect" @click="deconnexion">Déconnexion</button>
+           </div>
+           </div>
+           -->
+
+           <div id="nav">
+                <b-navbar class="success" toggleable="lg" type="dark" id="couleur">
+                    <b-navbar-brand href="#">Groupomania</b-navbar-brand>
+
+                    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+                    <b-collapse id="nav-collapse" is-nav>
+                    <b-navbar-nav>
+                        <b-nav-item><router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link></b-nav-item>
+                        <b-nav-item> <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link></b-nav-item>
+                        <b-nav-item> <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></b-nav-item>
+                    </b-navbar-nav>
+                    </b-collapse>
+                </b-navbar>
+            </div>
  
-  </div>
+  
+
 </template>
 
 <script>
+ import 'bootstrap/dist/css/bootstrap.css'
+ import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+
+// Make BootstrapVue available throughout your project
+// Vue.use(BootstrapVue)
 export default {
   name:'Header',
   methods:{
@@ -30,6 +57,12 @@ export default {
 </script>
 
 <style>
+#nav{
+    background-color: rgb(235, 177, 177);
+}
+#couleur{
+    background-color: rgb(235, 177, 177);
+}
 .header{
    background-color: rgb(235, 177, 177);
    width:100%;
@@ -41,12 +74,14 @@ export default {
     width:200px;
 }
 .titre_header{
-    width:10%;
+    width:100%;
     font-size: 1.5rem;
 }
 .logotitre{
      display: flex;
+     flex-wrap: wrap;
       align-items: center;
+      flex-direction: column;
 }
 #deconnect{
     border:none;
@@ -68,7 +103,8 @@ export default {
     width:20%;
 }
 .lien_router{
-   font-weight: bold;
-
+    font-weight: bold;
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.87);
 }
 </style>

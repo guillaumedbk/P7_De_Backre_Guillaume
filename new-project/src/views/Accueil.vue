@@ -27,7 +27,7 @@
                 <div class="post_body_accueil">
                   <h3>{{ post.texte }}</h3> <br>
                   <img  :src="post.imageUrl" alt="image du post" class="image_posts centpourcent"> <br>
-                  <i class="far fa-heart coeur centpourcent"></i>
+                  
                 </div>
         </div>
     
@@ -170,6 +170,7 @@ mounted(){
   justify-content: flex-start;
   flex-wrap: wrap;
   width:80%;
+  padding-bottom: 2em;
 }
 .lien_router{
 text-decoration: transparent;

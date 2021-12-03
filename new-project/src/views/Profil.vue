@@ -1,7 +1,7 @@
 <template>
+<div>
+ <Header />
   <div class="profil">
-     <Header></Header>
-   
   <ul>
     <li class="post" v-for="profil in personne" :key="profil.id">
         <h1>Bienvenue sur votre profil</h1>
@@ -17,13 +17,13 @@
         <p> <input type="email" :value= profil.email name="mail" id="mail" class="input" @click="inputChange"/></p>
         <p> <input type="textarea" :value= profil.bio name="bio" id="bio" class="input" @click="inputChange"/> </p>
         <p> <input type="password" :value= profil.password name="mpd" id="mdp" class="input" @click="inputChange"/> </p>
-        <p> <input type="submit" value="Soumettre" class="input"/> </p>
+        <p> <input type="submit" value="Soumettre" class="input" /> </p>
        </div>
       </form>
 
 <div>
   <h2>Vous souhaitez supprimer votre compte ?</h2>
-    <button @click="deleteUser">Supprimer mon compte</button>
+    <button @click="deleteUser" id="supp">Supprimer mon compte</button>
 
 </div>
  
@@ -31,6 +31,7 @@
         </li>
   </ul>
   </div>
+</div>
 </template>
 
 <script>
@@ -192,7 +193,11 @@ li{
   align-items: center;
 }
 .input{
-    color:black
+    color:black;
+}
+
+.background{
+  background:#df8d83;
 }
 .formulaire{
   display: flex;
@@ -212,5 +217,13 @@ li{
 #info{
   display: flex;
   align-items: center;
+}
+#supp{
+    border:none;
+    background-color: #fdebeb;
+    border-radius: 25px;
+    height: 50px;
+    width: 230px;
+    font-weight: bold;
 }
 </style>

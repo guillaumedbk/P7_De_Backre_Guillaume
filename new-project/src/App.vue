@@ -3,8 +3,24 @@
     <div id="nav">
 
  
- 
-   
+<!--
+        <div class="logotitre">
+            <img id="logo" alt="logo" src="./assets/icon.svg">
+            <h2 class="titre_header">Groupomania</h2>
+        </div>
+        
+        <div class="coordonnées">
+            <router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link>
+            <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link><br>
+            <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link>
+        </div>
+
+           <div> 
+             <button id="deconnect" @click="deconnexion">Déconnexion</button>
+           </div>  
+-->
+
+
     </div>
     <router-view/>
   </div>
@@ -12,6 +28,7 @@
 
 <script>
 import { mapState } from 'vuex'
+
 
 export default {
     name:'App',
@@ -43,16 +60,16 @@ computed:{
 }
 
 #nav {
-  padding: 30px;
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: black;
 
     &.router-link-exact-active {
       color: #fdd7d7;
     }
   }
+  
 }
 </style>
 
