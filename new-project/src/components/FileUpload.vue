@@ -4,7 +4,7 @@
       <div class="fields">
         <label>Upload File</label><br/>
       <p> <input type="text" v-model="texte" name="texte" placeholder="Votre message" class="input" required/></p>
-      <p> <input type="file" ref="file" @change="onSelect"/></p>
+      <p> <input type="file" ref="file" class="input" @change="onSelect"/></p>
        
       </div>
       <div class="fields">
@@ -46,11 +46,7 @@ export default {
 
     async onSubmit(){
       const self=this;
-     
-   //   let tokenLocal = localStorage.getItem('le_user')
-   //   let object = JSON.parse(tokenLocal)
-    //  let token = object.token;
-
+ 
       const formData = new FormData()
       formData.append('userId', this.id)
       formData.append('file',this.file)

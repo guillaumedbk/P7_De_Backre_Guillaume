@@ -6,7 +6,7 @@
     <div id="bienvenue">
          <h1 class="titre_accueil">Bonjour {{ $store.state.userInfos.user.prenom}} ! </h1><br>
     </div>
-        <h3>Voici les dernières nouvelles</h3>
+        <h2>Voici les dernières nouvelles</h2>
     
     <ul id="liste">
       <li class="post_accueil" v-for="post in posts" :key="post.id"> 
@@ -152,13 +152,12 @@ mounted(){
   
 }
 .nom{
-  color:#855353bd;
   width: fit-content;
   margin:1%;
 }
 #router_link{
    text-decoration-line: none;
-   color:#855353bd;
+   color:black;
 }
 .coeur{
   font-size: 2em;
