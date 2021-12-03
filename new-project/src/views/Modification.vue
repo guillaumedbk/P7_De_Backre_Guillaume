@@ -1,8 +1,7 @@
 <template>
-
-  <div class="file">
-    <Header></Header>
-    
+<div>
+   <Header />
+  <div class="file">   
     <ul id="liste">
       <li class="post" v-for="post in posts" :key="post.id"> 
 
@@ -18,28 +17,30 @@
     
             <p> <input type="text" :value= post.texte name="texte" id="texte" class="input" @click="inputChange"/></p>
 
+             <form @submit.prevent="onSubmit" enctype="multipart/form-data" > 
+      
+              <label>Upload File</label><br/>
+              <p> <input type="file" ref="file" @change="onSelect"/></p>
+              
+              <div class="fields">
+                <p><button>Submit</button></p>
+              </div>
+              <div class="message">
+                <h5>{{message}}</h5>
+              </div>
+        
+          </form>
+
         </form>
          
       </li>
 
 
-       <form @submit.prevent="onSubmit" enctype="multipart/form-data"  class="width"> 
       
-      <label>Upload File</label><br/>
-       <p> <input type="file" ref="file" @change="onSelect"/></p>
-       
-      <div class="fields">
-        <p><button>Submit</button></p>
-      </div>
-      <div class="message">
-        <h5>{{message}}</h5>
-      </div>
- 
-   </form>
    
  </ul>
   </div>
- 
+</div>
 </template>
 
 <script>
@@ -167,10 +168,5 @@ components:{
  width:100%;
   
 }
-.width{
-  width: 67.8%;
-  background:rgba(255,255,255, .3);
-  padding : 2em;
 
-}
 </style>

@@ -1,6 +1,8 @@
 <template>
+<div>
+ <Header />
   <div class="flex-center">
-  <Header></Header>
+ 
      
       <div class="post_design">
 
@@ -34,7 +36,7 @@
             </li>
         </ul>
     </div>
-   
+  </div> 
   </div>
 </template>
 
