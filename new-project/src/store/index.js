@@ -80,10 +80,11 @@ export default new Vuex.Store({
           },
           body: JSON.stringify(user) 
       })
+      .then((response) => response.json())
       .then((response) =>{
         commit('setStatus', 'created')
         commit('userInfos', response)
-        console.log(response.json(response))
+        alert(response.message)
       })
       .catch(function(error){
         commit('setStatus', 'error_create')

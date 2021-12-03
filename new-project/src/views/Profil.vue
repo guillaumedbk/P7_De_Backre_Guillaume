@@ -194,6 +194,7 @@ li{
 }
 .input{
     color:black;
+    width:100%;
 }
 
 .background{

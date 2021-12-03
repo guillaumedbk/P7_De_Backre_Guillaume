@@ -18,23 +18,30 @@ exports.signup = (req, res, next)=>{
     var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
     let encryptedMail = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString();
     var decrypted = CryptoJS.AES.decrypt(encryptedMail, key, { iv: iv }).toString();  
-   // let decrypt = decrypted.toString(CryptoJS.enc.Utf8)
-    
-        //Ajout de l'utilisateur
-        bcrypt.hash(req.body.password, 10)
-        .then((hash) =>{
-          Model.Users.create({
-            email: encryptedMail,
-            password: hash,
-            prenom: req.body.prenom,
-            nom: req.body.nom,
-            bio: req.body.bio,
-            isAdmin: true
+ 
+    Model.Users.findOne({
+      where: {email: encryptedMail} 
+     }).then(user =>{
+        if(user){
+          return res.status(401).json( {message : 'Email déjà existant en base de données !'} )
+        }else{
+          //Ajout de l'utilisateur
+          bcrypt.hash(req.body.password, 10)
+          .then((hash) =>{
+            Model.Users.create({
+              email: encryptedMail,
+              password: hash,
+              prenom: req.body.prenom,
+              nom: req.body.nom,
+              bio: req.body.bio,
+              isAdmin: true
+            })
+
+          .then(()=> res.status(200).json({ message : 'Utilisateur créé, veuillez vous connecter'}))
           })
-         // .then((encryptedMail)=> {console.log(decrypted.toString(CryptoJS.enc.Utf8))})
-          .then(()=> res.status(200).json({ message : 'objet enregistré'}))
-        })
-        .catch(error => res.status(400).json({ error }));
+          .catch(error => res.status(400).json({ error }));
+                  }
+              })    
     }
    
   exports.login = (req, res, next) => {
