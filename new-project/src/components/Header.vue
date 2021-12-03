@@ -1,23 +1,8 @@
 <template>
-<!--  <div class="header">
-        <div class="logotitre">
-            <img id="logo" alt="logo" src="../assets/icon.svg">
-            <h2 class="titre_header">Groupomania</h2>
-        </div>
-        
-        <div class="coordonnées">
-            <router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link>
-            <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link><br>
-            <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link>
-        </div>
-           <div> 
-             <button id="deconnect" @click="deconnexion">Déconnexion</button>
-           </div>
-           </div>
-           -->
 
            <div id="nav">
                 <b-navbar class="success" toggleable="lg" type="dark" id="couleur">
+                    <img id="logo" alt="logo" src="../assets/icon.svg">
                     <b-navbar-brand href="#">Groupomania</b-navbar-brand>
 
                     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -29,9 +14,9 @@
                         <b-nav-item> <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></b-nav-item>
                     </b-navbar-nav>
 
-            <div> 
-             <button id="deconnect" @click="deconnexion">Déconnexion</button>
-            </div>
+                    <div> 
+                    <button id="deconnect" @click="deconnexion">Déconnexion</button>
+                    </div>
 
                     </b-collapse>
                 </b-navbar>
@@ -64,6 +49,7 @@ export default {
 <style>
 #nav{
     background-color: rgb(235, 177, 177);
+   
 }
 #couleur{
     background-color: rgb(235, 177, 177);

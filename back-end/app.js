@@ -8,6 +8,13 @@ const jwt = require('jsonwebtoken');
 const multer = require ('multer');
 const path = require ('path');
 const cors =require ('cors');
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
 
 //EVITER LES ERREURS DE CORS
 app.use((req, res, next) => {
@@ -37,5 +44,9 @@ app.use('/api/post/', routePost);
 app.use('/api/comments', routeComments);
 
 app.use('/images', express.static(path.join(__dirname, 'uploads')));
+
+app.use(helmet());
+
+app.use(limiter);
 
 module.exports = app;
