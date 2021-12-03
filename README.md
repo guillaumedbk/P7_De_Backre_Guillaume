@@ -7,10 +7,9 @@ Un réseau social interne d'entreprise, moderne et ludique.
 ### Front-end
 ```bash
 Requirements : node version 14
-  1. Nvm use 14.0 
-  2. Cd new-project (front)
-  3. Npm Install
-  4. Npm run serve
+  1. Cd new-project (front)
+  2. Npm Install
+  3. Npm run serve
 ```
 
 ### Back-end
@@ -18,16 +17,19 @@ Requirements : node version 14
 
   Créer fichier .env contenant:
 - Le TOKEN_SECRET
-- Valeur Crypto_key (crypto js)
-- Valeur Crypto_iv  (crypto js)
+- CryptoJs, ajouter les éléments suivants :
+ 
+  Crypto_key = //Assigner une valeur
+  Crypto_iv = //Assigner une valeur
 
-  1. Npm Install 
-  2. Lancer le server node
+  1. cd back-end
+  2. Npm Install 
+  3. Lancer le server node
 ```
 ### Base de données
 
 ```bash
-  Création de la base de données (npx sequelize-cli db:create)
   Configuration dans le fichier config/json
+  Création de la base de données (npx sequelize-cli db:create)
   npx sequelize-cli db:migrate
 ```
