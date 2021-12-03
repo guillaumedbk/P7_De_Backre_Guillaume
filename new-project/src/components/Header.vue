@@ -28,6 +28,11 @@
                         <b-nav-item> <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link></b-nav-item>
                         <b-nav-item> <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></b-nav-item>
                     </b-navbar-nav>
+
+            <div> 
+             <button id="deconnect" @click="deconnexion">Déconnexion</button>
+            </div>
+
                     </b-collapse>
                 </b-navbar>
             </div>
@@ -87,7 +92,7 @@ export default {
     border:none;
     background-color: #fdebeb;
     border-radius: 25px;
-    height: 50px;
+    height: 30px;
     width: 130px;
     font-weight: bold;
 }

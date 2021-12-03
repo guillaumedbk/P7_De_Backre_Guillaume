@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+<div class="containers">
     <h2>Connexion</h2>
 <form id="SignupForm" @submit="login">
     <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
@@ -95,34 +95,15 @@ computed:{
             self.$store.commit('setStatus', 'error_login');
           })
    }
-   
- /*
-  login: function(){
-    const self = this;
-    this.$store.dispatch('login', {
-          email: this.email,
-          password: this.password,
-    })
-    
-    .then(function(response){
-      console.log((response))
-      self.$router.push('Accueil')
-    })
-  
-    .catch(function (){
-      alert("mot de passe incorrect")
-    })
-  }
-  */
   },
 }
 </script>
 
 <style>
-.container{
+.containers{
   background:rgba(255,255,255, .3);
   padding:3rem;
-  height:350px;
+  width: 70%;
   border-radius:20px;
   box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, .2);
 }
@@ -135,7 +116,7 @@ input{
   border-left: 1px solid rgba(255, 255, 255, .3);
   border-top: 1px solid rgba(255, 255, 255, .3);
   padding: 1rem;
-  width: 200px;
+  width: 30%;
   border-radius: 50px;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
@@ -158,7 +139,7 @@ input[type="password"]:focus{
   box-shadow: 4px 4px 60px 8px rgba(0,0,0,0.2);
 }
 #bouton{
-    width:80%;
+    width: 25%;
     background-color:#fdd7d7 ;
     border:none;
     border-radius:20px;
