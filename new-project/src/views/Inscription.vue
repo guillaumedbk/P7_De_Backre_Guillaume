@@ -5,11 +5,11 @@
       <h3 id="message"></h3>
       <!-- Formulaire -->
       <form id="SignupForm" @submit="sendToApi()">
-        <p>   <input type="text" v-model="nom" name="Nom" placeholder="Nom" required/> </p>
-        <p>   <input type="text" v-model="prenom" name="Prénom" placeholder="Prénom" required/> </p>
-        <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" required/> </p>
-        <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" required/> </p>
-        <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie"/> </p>
+        <p>   <input type="text" v-model="nom" name="Nom" placeholder="Nom" class="p" required/> </p>
+        <p>   <input type="text" v-model="prenom" name="Prénom" placeholder="Prénom" class="p" required/> </p>
+        <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" class="p" required/> </p>
+        <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" class="p" required/> </p>
+        <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie" class="p" /> </p>
       
         <span v-if="status == 'loading'"><input type="submit" value="Création en cours" id="bouton"/></span>
         <span v-else><input type="submit" value="Créer mon compte" id="bouton"/></span>
@@ -77,7 +77,9 @@ h1, h2{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  
+}
+.SignupForm{
+  width: 100%;
 }
 .inscription{
   display: flex;
@@ -96,10 +98,9 @@ h1, h2{
   flex-wrap: wrap;
   justify-content: center;
 }
-p{
+.p{
   width:100%;
-  display: flex;
-  justify-content: space-between;
+ 
 }
 #bouton{
     width:80%;
