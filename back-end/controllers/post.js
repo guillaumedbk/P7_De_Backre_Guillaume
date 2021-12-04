@@ -40,6 +40,44 @@ exports.getOnePost = (req, res, next) =>{
 }
 //Modification d'un post
 exports.modifyOnePost = (req, res, next) =>{
+    //Id du post en question
+    let postid = req.params.id;
+    //headers authorization
+    let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+    //Id de la personne qui souhaite modifier
+    const id = decodeToken.userId;
+
+    //Vérfication autorisation à modifier
+    Model.Posts.findOne({
+        //Recherche du post en question dans la base de données
+        where: {id : postid}
+    }).then((post)=>{
+        //Vérification que la personne qui souhaite modifier est la même que celle qui a créé le post
+        if(post.userId == id){
+            //logique de modification
+            const postObject = req.file ?
+            {
+                texte: req.body.texte,
+                imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            } : { ...req.body };
+            
+            Model.Posts.findOne({where:{id:postid}})
+            .then((post)=>{
+                post.update({
+                    ...postObject
+                })
+                .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+                .catch(error => res.status(400).json({ error }));
+            })
+           
+        }else{
+            res.status(401).json({ message: 'Utilisateur non autorisé à modifier ce post'})
+        }
+    }).catch(error => res.status(500).json(error));
+}
+/*
+//Modification d'un post
+exports.modifyOnePost = (req, res, next) =>{
     let postid = req.params.id;
 
     let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
@@ -72,7 +110,7 @@ exports.modifyOnePost = (req, res, next) =>{
             }
     }).catch(error => res.status(500).json(error));
 }
-     
+     */
 
 //Suppression d'un post
 exports.deleteOne = (req, res, next) =>{

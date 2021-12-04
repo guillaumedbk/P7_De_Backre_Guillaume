@@ -126,7 +126,10 @@ components:{
       console.log(response)
       self.$router.push('/accueil')
       })
-      .catch((err)=> console.log(err))
+      .catch((err)=> {
+        console.log(JSON.stringify(err))
+        alert('non autorisé à modifier ce post')
+      })
 
       }
   }
