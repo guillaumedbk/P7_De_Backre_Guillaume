@@ -23,7 +23,7 @@
 
 <div>
   <h2>Vous souhaitez supprimer votre compte ?</h2>
-    <button @click="deleteUser" id="supp">Supprimer mon compte</button>
+    <button @click="deleteUser" id="supp">Supprimer le compte</button>
 
 </div>
  
@@ -162,7 +162,9 @@ methods:{
         alert('votre compte a bien été supprimé')
         self.$router.push('/inscription')
         })
-      .catch((error)=> {console.log(error.message)})
+      .catch(()=> {
+        alert('Vous ne pouvez supprimer ce profil !')
+        })
     },
 
     deconnexion(){

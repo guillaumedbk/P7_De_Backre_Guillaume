@@ -97,10 +97,10 @@ exports.getUser = (req, res, next) => {
       where: {id : id}}
       )
       .then(user =>{
-        
-         // Decrypt
+
         var key = CryptoJS.enc.Hex.parse(process.env.Crypto_key); 
         var iv = CryptoJS.enc.Hex.parse(process.env.Crypto_iv); 
+        // Decrypt
         var bytes  = CryptoJS.AES.decrypt(user.email, key, { iv: iv });
         var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
 
@@ -158,6 +158,46 @@ exports.deleteUser = (req, res, next) =>{
 
   let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
   const id = decodeToken.userId;
+  const idprofil = req.params.id;
+  console.log(idprofil)
+  
+  Model.Users.findOne({
+    where:{id: id}
+  }).then((user)=>{
+    //Récupération du profil que l'on souhaite supprimer
+    Model.Users.findOne({
+      where:{id: idprofil}
+    }).then((profil)=>{
+      //Vérifier que le profil est bien celui de l'utilisateur ou que celui-ci soit modérateur (isAdmin)
+      if(profil.id == id || user.isAdmin == true){
+        console.log(profil.id)
+        console.log(id)
+        console.log(user.isAdmin)
+        Model.Users.destroy({
+          //Si oui, suppression du profil
+          where:{ id: idprofil}
+        })
+        .then(() => res.status(200).json({ message: 'supprimé !' }))
+        .catch(error => res.status(400).json({ error }))
+      }else{
+        //Si non, réponse 401
+        res.status(401).json({ error: 'Utilisateur non autorisé à supprimer ce profil' })
+      }
+    }).catch(error => res.status(500).json(error));
+  })
+
+}
+
+
+
+
+
+
+/*
+exports.deleteUser = (req, res, next) =>{
+
+  let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+  const id = decodeToken.userId;
 
   Model.Users.findOne({
     where: {id : id}
@@ -172,7 +212,7 @@ exports.deleteUser = (req, res, next) =>{
   }
 }).catch(error => res.status(500).json(error));
 }
-
+*/
 
 exports.getAllUsers = (req, res, next) =>{
   Model.Users.findAll()

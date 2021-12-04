@@ -6,25 +6,27 @@
                 <div class="englobe">
                 <li class="utilisateurs" v-for="utilisateur in users" :key="utilisateur.id">   
                  <div>
+                   <router-link :to="{ name: 'Profil', params: { id: utilisateur.id  }}" class="lien_router">
                         <b-card-group deck>
                             <b-card
                             header="Profil"
                             header-tag="header"
-                            footer="Card Footer"
                             footer-tag="footer"
                             title="User:"
                             class="card"
                             >
                             <b-card-text>{{ utilisateur.prenom }} {{ utilisateur.nom }}</b-card-text>
-                            <p id="dd">{{ utilisateur.id }}</p>
+                           
                             <b-card-text>Biographie: {{ utilisateur.bio }}</b-card-text>
                             <div> 
-                            <p> <input type="number" :value= utilisateur.id name="id" id="id" class="input" @click="recuperation"/> </p>
-                                <button v-if="$store.state.userInfos.user.isAdmin == true" @click="recuperation" id="idd">{{ utilisateur.id}}</button>
+                                <p id="idd">{{ utilisateur.id }}</p>
+                              
+                                <button v-if="$store.state.userInfos.user.isAdmin == true" @click="suppression">Supprimer</button>
                             </div>
                             </b-card>
                             <br>
                         </b-card-group>
+                          </router-link>
                         </div>
                 </li>
                 </div>
@@ -60,7 +62,7 @@ axios.get("http://localhost:3000/api/auth/users", {headers:  {'authorization' : 
 
 },
 methods:{
-    recuperation(){
+    suppression(){
         const id = document.getElementById('idd').innerHTML;
         console.log(id)
     }
