@@ -13,16 +13,6 @@
  
         <router-link :to="{ name: 'Post', params: { id: post.id}}" id="router_link">
 
-            <ul> 
-             
-                  <li  v-for="user in userData" :key="user.id"> 
-                     <div class="post_header">
-                          <p class="nom">Publié par {{ user.prenom }}</p>
-                        </div> 
-                        
-                  </li>
-            </ul>
-
         <div class="centre">
                 <div class="post_body_accueil">
                   <h3>{{ post.texte }}</h3> <br>
