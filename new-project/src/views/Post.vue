@@ -17,9 +17,10 @@
                     
                     <img  :src="post.imageUrl" alt="image du post" class="image_posts"> <br>
                     <div id="boutons">
+                        <!-- Affichage des boutons Modifier/Supprimer seulement si la personne a créé le post ou est modératrice -->
                         <router-link :to="{ name: 'Commentaire', params: { id: id }}" tag="button">Commenter</router-link>
-                        <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button" v-if="user.id == $store.state.le_user.userId  || $store.state.userInfos.user.isAdmin == true">Modifier</router-link>
-                        <button @click="deletePost" v-if="user.id == $store.state.le_user.userId || $store.state.userInfos.user.isAdmin == true"> Supprimer </button>
+                        <router-link :to="{ name: 'Modification', params: { id: id }}" tag="button" v-if="post.userId == $store.state.le_user.userId  || $store.state.userInfos.user.isAdmin == true">Modifier</router-link>
+                        <button @click="deletePost" v-if="post.userId == $store.state.le_user.userId  || $store.state.userInfos.user.isAdmin == true"> Supprimer </button>
                     </div>
                 </li>
            
