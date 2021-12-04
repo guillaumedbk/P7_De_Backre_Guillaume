@@ -10,7 +10,16 @@
         <p>   <input type="email" v-model="email" name="Mail" placeholder="Mail" class="p" required/> </p>
         <p>   <input type="password" v-model="password" name="password" placeholder="Mot de passe" class="p" required/> </p>
         <p>   <input type="textarea" v-model="bio" name="Bio" placeholder="Biographie" class="p" /> </p>
-      
+
+        <p>Quel est votre rôle ?</p>
+        <div id="role">
+        <input type="radio" id="false" value="false" v-model="picked">
+          <label for="one">Utilisateur</label>
+          <br>
+        <input type="radio" id="true" value="true" v-model="picked">
+          <label for="two">Modérateur</label>
+        <br>
+        </div>
         <span v-if="status == 'loading'"><input type="submit" value="Création en cours" id="bouton"/></span>
         <span v-else><input type="submit" value="Créer mon compte" id="bouton"/></span>
       </form>
@@ -36,7 +45,8 @@ export default{
       prenom:'',
       nom:'',
       bio:'',
-      isAdmin:true
+      isAdmin:"",
+      picked:""
     }
   },
   computed:{
@@ -51,7 +61,7 @@ export default{
           prenom: this.prenom,
           nom: this.nom,
           bio: this.bio,
-          isAdmin: true
+          isAdmin: this.picked
     })
     .then(function(){
      self.$router.push('/')
@@ -70,6 +80,10 @@ export default{
 
 
 <style lang="scss">
+#role{
+  display: flex;
+  flex-direction: column;
+}
 h1, h2{
   width: 100%;
 }

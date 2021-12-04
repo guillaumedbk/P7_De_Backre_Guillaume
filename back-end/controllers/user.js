@@ -34,7 +34,7 @@ exports.signup = (req, res, next)=>{
               prenom: req.body.prenom,
               nom: req.body.nom,
               bio: req.body.bio,
-              isAdmin: true
+              isAdmin: req.body.isAdmin
             })
 
           .then(()=> res.status(200).json({ message : 'Utilisateur créé, veuillez vous connecter'}))
