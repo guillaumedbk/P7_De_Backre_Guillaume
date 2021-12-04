@@ -18,11 +18,7 @@
                             <b-card-text>{{ utilisateur.prenom }} {{ utilisateur.nom }}</b-card-text>
                            
                             <b-card-text>Biographie: {{ utilisateur.bio }}</b-card-text>
-                            <div> 
-                                <p id="idd">{{ utilisateur.id }}</p>
-                              
-                                <button v-if="$store.state.userInfos.user.isAdmin == true" @click="suppression">Supprimer</button>
-                            </div>
+                
                             </b-card>
                             <br>
                         </b-card-group>
@@ -51,6 +47,8 @@ components:{
 }, 
 
 mounted(){
+   //Vérifier l'état de connexion
+    if(this.$store.state.user != -1){
 let tokenLocal = localStorage.getItem('le_user')
         let object = JSON.parse(tokenLocal)
         let token = object.token;
@@ -59,7 +57,9 @@ let tokenLocal = localStorage.getItem('le_user')
 axios.get("http://localhost:3000/api/auth/users", {headers:  {'authorization' : 'bearer ' + token}})
 .then((utilisateurs) => this.users = utilisateurs.data.users)
 .catch(error => console.log(error))
-
+    }else{
+       this.$router.push('/')
+    }
 },
 methods:{
     suppression(){

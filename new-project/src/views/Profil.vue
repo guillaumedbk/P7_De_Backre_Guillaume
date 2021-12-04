@@ -52,6 +52,9 @@ export default {
     },
 
 mounted(){
+  //Vérifier l'état de connexion
+    if(this.$store.state.user != -1){
+      
   let tokenLocal = localStorage.getItem('le_user')
   let object = JSON.parse(tokenLocal)
   let token = object.token;
@@ -70,7 +73,9 @@ mounted(){
       .catch(function(error){
         alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
       })
-
+    }else{
+      this.$router.push('/')
+    }
 },
 methods:{
     inputChange(){

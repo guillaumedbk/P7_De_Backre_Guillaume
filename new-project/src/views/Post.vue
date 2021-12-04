@@ -69,7 +69,8 @@ export default {
         let object = JSON.parse(tokenLocal)
         let token = object.token;
         const self = this;
-
+        
+        //Vérifier l'état de connexion
           if(this.$store.state.user != -1){
         axios
         .get("http://localhost:3000/api/post/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
@@ -92,9 +93,7 @@ export default {
         .catch((error) =>{
         console.log(error.message)
     })
-          }else{
-              self.$router.push('/')
-          }
+        
      axios
      .get("http://localhost:3000/api/comments/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
      .then(response => this.comments = response.data.comment)
@@ -102,6 +101,9 @@ export default {
         console.log(error.message)
   
     })
+          }else{
+              self.$router.push('/')
+          }
     },
     methods:{
         deletePost(){

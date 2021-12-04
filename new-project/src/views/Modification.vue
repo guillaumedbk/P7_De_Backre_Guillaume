@@ -65,9 +65,13 @@ components:{
   },
   
   mounted(){
+    //Vérifier l'état de connexion
+    if(this.$store.state.le_user != -1){
+      
     let tokenLocal = localStorage.getItem('le_user')
     let object = JSON.parse(tokenLocal)
     let token = object.token;
+    
 
     axios
     .get("http://localhost:3000/api/post/"+this.id, {headers:  {'authorization' : 'bearer ' + token}})
@@ -80,6 +84,9 @@ components:{
       console.log(error.message)
   
     })
+    }else{
+      this.$router.push('/')
+    }
   },
   
   methods:{

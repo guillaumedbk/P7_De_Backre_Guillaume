@@ -64,9 +64,10 @@ mounted(){
   let tokenLocal = localStorage.getItem('le_user')
   let object = JSON.parse(tokenLocal)
   let token = object.token;
-  
+
+  //Vérifer l'état de connexion
   if(this.$store.state.le_user != -1){
-  //
+
   fetch("http://localhost:3000/api/post/", {
           method: 'GET',
           headers: { 
