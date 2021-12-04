@@ -188,32 +188,6 @@ exports.deleteUser = (req, res, next) =>{
 
 }
 
-
-
-
-
-
-/*
-exports.deleteUser = (req, res, next) =>{
-
-  let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
-  const id = decodeToken.userId;
-
-  Model.Users.findOne({
-    where: {id : id}
-  }).then((user)=>{
-
-  if(user.id == id || user.isAdmin == true){
-  Model.Users.destroy({where: { id : id}})
-    .then(() => res.status(200).json({ message: 'supprimé !' }))
-    .catch(error => res.status(400).json({ error }))
-  }else{
-    res.status(401).json({ error: 'Utilisateur non autorisé à supprimer ce profil' })
-  }
-}).catch(error => res.status(500).json(error));
-}
-*/
-
 exports.getAllUsers = (req, res, next) =>{
   Model.Users.findAll()
   .then(users =>res.status(200).json({ users }))
