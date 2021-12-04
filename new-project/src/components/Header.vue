@@ -12,6 +12,7 @@
                         <b-nav-item><router-link :to="{ name: 'Accueil'}" class="lien_router">Accueil</router-link></b-nav-item>
                         <b-nav-item> <router-link :to="{ name: 'Creation', params: { id: this.$store.state.le_user.userId }}" class="lien_router">Créer un post</router-link></b-nav-item>
                         <b-nav-item> <router-link :to="{ name: 'Profil', params: { id: $store.state.le_user.userId }}" class="lien_router">Profil</router-link></b-nav-item>
+                        <b-nav-item> <router-link :to="{ name: 'Utilisateurs'}" class="lien_router">Communauté</router-link></b-nav-item>
                     </b-navbar-nav>
 
                     <div> 

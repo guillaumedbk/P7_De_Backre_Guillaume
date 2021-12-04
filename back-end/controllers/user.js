@@ -130,7 +130,7 @@ exports.modifyUser = (req, res, next) =>{
     where: {id : id}
   }).then((user)=>{
 
-    if(user.id == id || user.isAdmin == true){
+    if(user.id == id){
 
           bcrypt.hash(req.body.password, 10)
           .then((hash) =>{
@@ -171,4 +171,11 @@ exports.deleteUser = (req, res, next) =>{
     res.status(401).json({ error: 'Utilisateur non autorisé à supprimer ce profil' })
   }
 }).catch(error => res.status(500).json(error));
+}
+
+
+exports.getAllUsers = (req, res, next) =>{
+  Model.Users.findAll()
+  .then(users =>res.status(200).json({ users }))
+  .catch(error => res.status(400).json({ error }))
 }
