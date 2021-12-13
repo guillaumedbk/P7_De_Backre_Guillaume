@@ -124,9 +124,11 @@ exports.modifyUser = (req, res, next) =>{
   let encryptedMail = CryptoJS.AES.encrypt(req.body.email, key, { iv: iv }).toString();
  
   let decodeToken = jwt.verify(req.headers.authorization.split(' ')[1], process.env.TOKEN_SECRET);
+  //id de l'utilisateur
   const id = decodeToken.userId;
 
   Model.Users.findOne({
+    //Récupération des données de l'utilisateur
     where: {id : id}
   }).then((user)=>{
 
